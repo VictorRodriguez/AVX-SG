@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "add.h"
+
 
 #define BILLION 1E9
 
@@ -70,11 +70,12 @@ int main(int argc, char **argv){
     fill_arrays();
 
     int delay_value = 0; // in useconds
+    int loops = 1000000;
     int index;
     int c;
 
     opterr = 0;
-    while ((c = getopt (argc, argv, "hd:")) != -1)
+    while ((c = getopt (argc, argv, "hd:l:")) != -1)
     switch (c){
       case 'h':
         print_help();
@@ -82,8 +83,11 @@ int main(int argc, char **argv){
       case 'd':
         delay_value = atoi(optarg);
         break;
+      case 'l':
+        loops = atoi(optarg);
+        break;
       case '?':
-        if (optopt == 'd')
+        if (optopt == 'd' || optopt == 'l')
           fprintf (stderr, "Option -%c requires an argument.\n", optopt);
         else if (isprint (optopt))
           fprintf (stderr, "Unknown option `-%c'.\n", optopt);
@@ -99,7 +103,7 @@ int main(int argc, char **argv){
     double accum;
 
     clock_gettime( CLOCK_REALTIME, &start);
-    for (int x=0; x<MAX; x++){
+    for (int x=0; x<loops; x++){
         foo();
         if (delay_value){
             usleep(delay_value);
@@ -111,14 +115,14 @@ int main(int argc, char **argv){
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
     
-    avg_time_taken =(accum) /MAX;
+    avg_time_taken =(accum) /loops;
 
     if (check_arrays())
         return -1;
 
 
-    printf("Loops: %d\n",MAX);
-    printf("Delay per function: %.9g in seconds \n",(delay_value/1E3));
+    printf("Loops: %d\n",loops);
+    printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
     printf("Total time: %.9g seconds to execute \n",accum);
     printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
     return 0;
