@@ -24,9 +24,9 @@
 
 #define BILLION 1E9
 
-int a[256] = {0}; 
-int b[256] = {0};
-int c[256] = {0};
+float a[256] = {0}; 
+float b[256] = {0};
+float c[256] = {0};
 
 void foo(){
         for (int i=0; i<256; i++){
@@ -36,8 +36,8 @@ void foo(){
 
 void fill_arrays(){
     for (int i=0; i<256; i++){
-        b[i] = 1;
-        c[i] = 2;
+        b[i] = 1.0;
+        c[i] = 2.0;
 
     }
 }
