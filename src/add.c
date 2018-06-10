@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include "add.h"
 
+#define BILLION 1E9
+
 int a[256] = {0}; 
 int b[256] = {0};
 int c[256] = {0};
@@ -93,28 +95,31 @@ int main(int argc, char **argv){
     }
 
 
-    t = clock();
+    struct timespec start, stop;
+    double accum;
+
+    clock_gettime( CLOCK_REALTIME, &start);
     for (int x=0; x<MAX; x++){
         foo();
         if (delay_value){
             usleep(delay_value);
         }
     }
-    t = clock() - t;
+    clock_gettime( CLOCK_REALTIME, &stop);
 
-    time_taken = ((double)t)/CLOCKS_PER_SEC;
+    accum = ( stop.tv_sec - start.tv_sec )
+          + ( stop.tv_nsec - start.tv_nsec )
+            / BILLION;
+    
+    avg_time_taken =(accum) /MAX;
 
-    double delayin_sec = (double)delay_value / 1000000;
-    avg_time_taken =(((double)t)/CLOCKS_PER_SEC) /MAX;
-
-    // check aritmetic
     if (check_arrays())
         return -1;
 
 
     printf("Loops: %d\n",MAX);
-    printf("Delay per function: %.9g in seconds \n",(delayin_sec));
-    printf("Total time: %.9g seconds to execute \n",time_taken);
+    printf("Delay per function: %.9g in seconds \n",(delay_value/1E3));
+    printf("Total time: %.9g seconds to execute \n",accum);
     printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
     return 0;
 }
