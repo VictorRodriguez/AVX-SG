@@ -62,17 +62,10 @@ see the [tags on this repository](https://github.com/your/project/tags).
 
 ## Authors
 
-* **Victor Rodriguez** - *Initial work* -
-  [PurpleBooth](https://github.com/PurpleBooth)
+* **Victor Rodriguez** 
 
-  See also the list of
-  [contributors](https://github.com/your/project/contributors) who participated
-  in this project.
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-  ## License
-
-  This project is licensed under the MIT License - see the
-  [LICENSE.md](LICENSE.md) file for details
-
-  ## Acknowledgments
+## Acknowledgments
 
