@@ -1,26 +1,78 @@
 # AVX benchmark
 
 
-CPU architectures often gain interesting new instructions as they evolve, but
-application developers often find it difficult to take advantage of those
-instructions. Reluctance to lose backward-compatibility is one of the main
-roadblocks slowing developers from using advancements in newer computing
-architectures. This section try to teach how to use the intrinsics of AVX
-technology in immintrin.h library. From AVX2  to AVX 512 technology.
+AVX benchmkar stress Advanced Vector Extensions instructions in x86\_64 CPUs
 
-The benefits of using the new architecture's technologies are compelling enough
-to outweigh integration challenges. Math-heavy code, for example, can be
-significantly optimized by turning on the Intel Advanced Vector Extensions
-(AVX). The second version of AVX (AVX2), which was introduced in the
-4th-generation Intel Core processor family also known as "Haswell", is one
-option. The benefits of AVX2 are well-understood in scientific computing
-fields. The use of AVX2 in the OpenBLAS library can give a project like the R
-language a boost of up to 2x faster execution; it can also yield significant
-improvement in Python scientific libraries. These performance improvements are
-gained by doubling the number of floating-point operations per second (FLOPS)
-using 256-bit integer instructions, floating-point fused multiply-add
-instructions, and gather operations. More info and sources at [LWN
-article](https://lwn.net/Articles/691932/)
+## Getting Started
 
-This benchmkar helps to stress the CPU with these instructions by compiler
-flags, intrinsic or asm
+These instructions will get you a copy of the project up and running on your
+local machine for development and testing purposes. See deployment for notes on
+how to deploy the project on a live system.
+
+### Prerequisites
+
+What things you need to install the software and how to install them:
+
+* C compiler ( GCC if possible ) that suport upt to icelake flags
+* Linux/Unix system
+
+
+### Building
+
+A step by step series of examples that tell you how to get a development env
+running
+
+
+```
+    make
+
+```
+
+
+```
+    make clean
+```
+
+## Running the tests
+
+
+To run full benchmark:
+
+```
+    ./avx_bench
+```
+
+To run specific aritmetic function:
+
+```
+    ./avx_bench -f add -march =haswell -l 10000 -d 10
+```
+
+## Contributing
+
+Please read
+[CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for
+details on our code of conduct, and the process for submitting pull requests to
+us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available,
+see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Victor Rodriguez** - *Initial work* -
+  [PurpleBooth](https://github.com/PurpleBooth)
+
+  See also the list of
+  [contributors](https://github.com/your/project/contributors) who participated
+  in this project.
+
+  ## License
+
+  This project is licensed under the MIT License - see the
+  [LICENSE.md](LICENSE.md) file for details
+
+  ## Acknowledgments
+
