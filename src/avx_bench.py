@@ -62,7 +62,7 @@ def main():
 
     if (os.path.isfile("add-march-sse")):
         cmd = "./"
-    elif (os.path.isfile("src/add")):
+    elif (os.path.isfile("src/add-march-sse")):
         cmd = "src/"
     else:
         print("No binaries to run")
