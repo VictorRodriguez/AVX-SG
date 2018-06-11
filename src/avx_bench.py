@@ -45,14 +45,12 @@ def main():
         if args.function in supported_funtions:
             function = args.function
         else:
-            print("1")
             print_help()
             sys.exit(-1)
     if args.arch:
         if args.arch in supported_archs:
             arch = args.arch
         else:
-            print("2")
             print_help()
             sys.exit(-1)
     if args.loops:
