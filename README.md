@@ -41,10 +41,30 @@ To run full benchmark:
     ./avx_bench
 ```
 
-To run specific aritmetic function:
+Help : 
 
 ```
-    ./avx_bench -f add -march =haswell -l 10000 -d 10
+ ./avx_bench -h
+usage: avx_bench [-h] [-f FUNCTION] [-a ARCH] [-l LOOPS] [-d DELAY]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FUNCTION, --function FUNCTION
+                        Aritmetic function to stress
+  -a ARCH, --architecture ARCH
+                        Architecture (haswell/skylake/icelake
+  -l LOOPS, --loops LOOPS
+                        # loops to repeat the workload
+  -d DELAY, --delay DELAY
+                        delay between workload ( in useconds)
+ 
+```
+
+Examples: 
+
+```
+    ./avx_bench -f add -l 1000000000
+    ./avx_bench -f add -l 1000 -d 10000
 ```
 
 ## Contributing
