@@ -23,22 +23,59 @@ def print_help():
     print(supported_archs)
     print()
 
+def gen_foo(function,complexity):
+    f = open('foo.h','w')
+    if function == "add":
+        instr = "+"
+    else:
+        instr = "+"
+
+    if complexity == 5:
+        f.write("extern float a[256];\n")
+        f.write("extern float b[256];\n")
+        f.write("extern float c[256];\n")
+        f.write("extern void foo(){\n")
+        f.write("    for (int i=0; i<256; i++){\n")
+        f.write("        a[i] = b[i] "+ instr + " c[i];\n")
+        f.write("    }\n")
+        f.write("}\n")
+    if complexity == 10:
+        f.write("extern float a[256];\n")
+        f.write("extern float b[256];\n")
+        f.write("extern float c[256];\n")
+        f.write("extern float d[256];\n")
+        f.write("extern void foo(){\n")
+        f.write("    for (int i=0; i<256; i++){\n")
+        f.write("        a[i] = b[i] "+ instr + " c[i];\n")
+        f.write("        d[i] = a[i] "+ instr + " c[i];\n")
+        f.write("        d[i] = b[i] "+ instr + " c[i];\n")
+        f.write("        d[i] = c[i] "+ instr + " c[i];\n")
+        f.write("        d[i] = d[i] "+ instr + " c[i];\n")
+        f.write("    }\n")
+        f.write("}\n")
+
 def main():
     cmd = ""
     function = "add"
     arch = "haswell"
     loops = 1000000
     delay = 0
+    complexity = 5
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--function", \
             help="Aritmetic function to stress",dest='function')
+    parser.add_argument("-b", "--build", \
+            help="build benchmark",action='store_true')
     parser.add_argument("-a", "--architecture", \
             help="Architecture (haswell/skylake/icelake",dest='arch')
     parser.add_argument("-l", "--loops", \
             help="# loops to repeat the workload",dest='loops')
     parser.add_argument("-d", "--delay", \
             help="delay between workload ( in useconds)",dest='delay')
+    parser.add_argument("-c", "--complexity", \
+            help="Complexity of benchmark ( how \
+            much you want to stress the CPU) ",dest='complexity')
     args = parser.parse_args()
 
     if args.function:
@@ -57,6 +94,11 @@ def main():
         loops=args.loops
     if args.delay:
         delay=args.delay
+    if args.complexity and args.build:
+        complexity = int(args.complexity)
+        gen_foo(function,complexity)
+        cmd = "make"
+        os.system(cmd)
 
     if (os.path.isfile("add-march-sse")):
         cmd = "./"

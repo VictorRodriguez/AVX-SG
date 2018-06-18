@@ -27,6 +27,7 @@
 float a[256] = {0}; 
 float b[256] = {0};
 float c[256] = {0};
+float d[256] = {0};
 
 
 void fill_arrays(){
