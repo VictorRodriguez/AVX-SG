@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-
+#include "foo.h"
 
 #define BILLION 1E9
 
@@ -28,11 +28,6 @@ float a[256] = {0};
 float b[256] = {0};
 float c[256] = {0};
 
-void foo(){
-    for (int i=0; i<256; i++){
-        a[i] = b[i] + c[i];
-    }
-}
 
 void fill_arrays(){
     for (int i=0; i<256; i++){
