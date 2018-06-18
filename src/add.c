@@ -29,9 +29,9 @@ float b[256] = {0};
 float c[256] = {0};
 
 void foo(){
-        for (int i=0; i<256; i++){
-            a[i] = b[i] + c[i];
-        }
+    for (int i=0; i<256; i++){
+        a[i] = b[i] + c[i];
+    }
 }
 
 void fill_arrays(){
@@ -58,6 +58,7 @@ int check_arrays(){
 void print_help(){
     printf("-h : Help\n");
     printf("-d <delay> : Delay in useconds\n");
+    printf("-l <loop> : Loops\n");
 }
 
 int main(int argc, char **argv){
