@@ -113,6 +113,10 @@ def main():
             + " -d " + str(delay)
     print("CMD = " + cmd)
 
+    # if you want to run a script of binary before the bench 
+    # cmd = "./binary"
+    # os.system(cmd)
+
     os.system(cmd)
 if __name__ == "__main__":
     main()
