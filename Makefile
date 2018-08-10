@@ -10,8 +10,8 @@ all:
 	gcc -O3 -march=skylake-avx512 basic_add_i_avx512.c -o basic_add_i_avx512
 	gcc -O3 -march=skylake-avx512 stress_add_avx512.c -o stress_add_avx512
 	gcc -O3 -march=skylake-avx512 stress_add_d_avx512.c -o stress_add_d_avx512
-	gcc -O3 -march=skylake-avx512 stress_add_i_avx512.c -o basic_add_i_avx512
-	gcc -O3 -march=icelake-server -mavx5124vnniw 4dpwssd_epi32.c -o 4dpwssd_epi32
+	gcc -O3 -march=skylake-avx512 stress_add_i_avx512.c -o stress_add_i_avx512
+	gcc -O3 -march=skylake-avx512 -mavx5124vnniw 4dpwssd_epi32.c -o 4dpwssd_epi32
 
 check: all
 	./basic_add_asm
@@ -21,6 +21,7 @@ check: all
 	./basic_add_avx2
 	./basic_add_avx512
 	./basic_add_d_avx512
+	./basic_add_i_avx512
 clean:
 	@find . -type f -executable -exec sh -c "file -i '{}' | grep -q 'x-executable; charset=binary'" \; -print | xargs rm -f
 
