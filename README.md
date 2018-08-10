@@ -1,95 +1,26 @@
-# AVX benchmark
+# Inline ASM examples
+
+Generally the inline term is used to instruct the compiler to insert the code
+of a function into the code of its caller at the point where the actual call is
+made. Such functions are called "inline functions". The benefit of inlining is
+that it reduces function-call overhead.
+
+Now, it's easier to guess about inline assembly. It is just a set of assembly
+instructions written as inline functions. Inline assembly is used for speed,
+and you ought to believe me that it is frequently used in system programming.
+
+We can mix the assembly statements within C/C++ programs using keyword asm.
+Inline assembly is important because of its ability to operate and make its
+output visible on C/C++ variables.
 
 
-AVX benchmkar stress Advanced Vector Extensions instructions in x86\_64 CPUs
 
-## Getting Started
+## How to build these examples
 
-These instructions will get you a copy of the project up and running on your
-local machine for development and testing purposes. See deployment for notes on
-how to deploy the project on a live system.
+``` make ```
 
-### Prerequisites
+How to assign a cpu to run it : 
 
-What things you need to install the software and how to install them:
+``` ./add & taskset -cp 0 <PID> ```
 
-* C compiler ( GCC if possible ) that suport upt to icelake flags
-* Linux/Unix system
-
-
-### Building
-
-A step by step series of examples that tell you how to get a development env
-running
-
-
-```
-    make
-```
-
-
-```
-    make clean
-```
-
-## Running the tests
-
-
-To run full benchmark:
-
-```
-    ./avx_bench
-```
-
-Help : 
-
-```
- ./avx_bench -h
-usage: avx_bench [-h] [-f FUNCTION] [-a ARCH] [-l LOOPS] [-d DELAY]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -f FUNCTION, --function FUNCTION
-                        Aritmetic function to stress
-  -a ARCH, --architecture ARCH
-                        Architecture (haswell/skylake/icelake
-  -l LOOPS, --loops LOOPS
-                        # loops to repeat the workload
-  -d DELAY, --delay DELAY
-                        delay between workload ( in useconds)
- 
-```
-
-Examples: 
-
-```
-    ./avx_bench -f add -l 1000000000
-    ./avx_bench -f add -l 1000 -d 10000
-```
-
-## Contributing
-
-Please read
-[CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for
-details on our code of conduct, and the process for submitting pull requests to
-us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available,
-see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Victor Rodriguez** 
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
-
-## Acknowledgments
-
-## TDOO
-
-Add Built in functions
-https://gcc.gnu.org/onlinedocs/gcc-4.9.2/gcc/X86-Built-in-Functions.html
 
