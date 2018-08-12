@@ -12,6 +12,7 @@ all:
 	gcc -O3 -march=skylake-avx512 stress_add_d_avx512.c -o stress_add_d_avx512
 	gcc -O3 -march=skylake-avx512 stress_add_i_avx512.c -o stress_add_i_avx512
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw 4dpwssd_epi32.c -o 4dpwssd_epi32
+	gcc -O3 -march=icelake-server dpbusd_epi32.c -o dpbusd_epi32
 
 check: all
 	./basic_add_asm
