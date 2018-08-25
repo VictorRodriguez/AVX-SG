@@ -3,6 +3,7 @@ all:
 	gcc basic_sub_asm.c -o basic_sub_asm
 	gcc basic_mul_asm.c -o basic_mul_asm
 	gcc basic_div_asm.c -o basic_div_asm
+	gcc basic_arit_asm.c -o basic_arit_asm
 	gcc -O3 -march=haswell basic_add_avx2.c -o basic_add_avx2
 	gcc -O3 -march=haswell stress_add_avx2.c -o stress_add_avx2
 	gcc -O3 -march=skylake-avx512 basic_add_avx512.c -o basic_add_avx512

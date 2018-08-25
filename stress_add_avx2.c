@@ -4,6 +4,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <immintrin.h>
+#include "common.h"
 
 #define BILLION 1E9
 
@@ -21,33 +22,6 @@ void foo(){
         }
 }
 
-void fill_arrays(){
-    for (int i=0; i<256; i++){
-        b[i] = 1.0;
-        c[i] = 2.0;
-
-    }
-}
-
-int check_arrays(){
-    int ret = 0;
-    for (int i=0; i<256; i++){
-        if (a[i] == 3)
-            continue;
-        else
-            printf("FAIL, corruption in arithmetic");
-            ret =  -1;
-            break;
-    }
-    return ret;
-}
-
-void print_help(){
-    printf("-h : Help\n");
-    printf("-d <delay> : Delay in useconds\n");
-    printf("-l <delay> : Loops\n");
-}
-
 int main(int argc, char **argv){
 
     clock_t t;
@@ -55,7 +29,7 @@ int main(int argc, char **argv){
     double time_taken;
 
     // initialize arrays
-    fill_arrays();
+    fill_arrays_floats(&b[0],&c[0]);
 
     int delay_value = 0; // in useconds
     long int loops = 10000000000;
@@ -105,13 +79,8 @@ int main(int argc, char **argv){
     
     avg_time_taken =(accum) /loops;
 
-    if (check_arrays())
+    if (check_arrays_float(3.0,&a[0]))
         return -1;
-
-
-    printf("Loops: %d\n",loops);
-    printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
-    printf("Total time: %.9g seconds to execute \n",accum);
-    printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
+    print_result(loops,delay_value,accum,avg_time_taken);
     return 0;
 }
