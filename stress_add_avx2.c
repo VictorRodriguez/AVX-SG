@@ -24,19 +24,15 @@ void foo(){
 
 int main(int argc, char **argv){
 
-    clock_t t;
     double avg_time_taken;
     double time_taken;
+    int delay_value = 0; // in useconds
+    long int loops = 10000000000;
 
     // initialize arrays
     fill_arrays_floats(&b[0],&c[0]);
 
-    int delay_value = 0; // in useconds
-    long int loops = 10000000000;
-    int index;
     int c;
-
-    opterr = 0;
     while ((c = getopt (argc, argv, "hd:l:")) != -1)
     switch (c){
       case 'h':
@@ -63,8 +59,8 @@ int main(int argc, char **argv){
 
     struct timespec start, stop;
     double accum;
-
     clock_gettime( CLOCK_REALTIME, &start);
+
     for (int x=0; x<loops; x++){
         foo();
         if (delay_value){
@@ -77,7 +73,7 @@ int main(int argc, char **argv){
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
     
-    avg_time_taken =(accum) /loops;
+    avg_time_taken =(accum)/loops;
 
     if (check_arrays_float(3.0,&a[0]))
         return -1;
