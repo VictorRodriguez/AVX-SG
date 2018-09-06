@@ -1,5 +1,8 @@
 #!/bin/bash
 
+avx2_flag=false
+avx512_flag=false
+
 run_basic(){
 for file in $patern
 do
@@ -24,6 +27,9 @@ do
     echo Running $file in $CPUs CPUs
     for cpu in $(seq 0 $CPUs)
     do 
+        #use this line if you want to modify loops and delay
+        #./$file -l 1000000 -d 1000 &
+        # if you want default use this one
         ./$file &
         PID=$!
         echo PID = $PID , CPU = $cpu
@@ -52,6 +58,7 @@ then
     run_basic
     avx512_flag=true
 fi
+
 
 if $avx2_flag ; then
     patern=build/stress_add_avx2
