@@ -29,3 +29,9 @@ Create static binary which runs across multiple distros
 ## How to run all examples in all CPUs available:
 
 ``` ./run-all.sh ```
+
+If you want to kill all the processes running in the system, you can use: 
+
+``` pkill -f build/<file> ```
+
+instead of kill -9 <PID>
