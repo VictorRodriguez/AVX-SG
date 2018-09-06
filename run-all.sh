@@ -1,4 +1,4 @@
-CPUs=$(grep -c ^processor /proc/cpuinfo)
+CPUs=$(($(grep -c ^processor /proc/cpuinfo)-1))
 for file in build/stress_add_avx2
 do
     echo
@@ -7,7 +7,7 @@ do
     do 
         ./$file &
         PID=$!
-        echo PID = $PID
+        echo PID = $PID , CPU = $cpu
         taskset -cp $cpu $!
     done
     wait $PID
