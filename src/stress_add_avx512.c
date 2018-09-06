@@ -4,6 +4,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <immintrin.h>
+#include "common.h"
 
 #define BILLION 1E9
 
@@ -21,50 +22,20 @@ void foo(){
         }
 }
 
-void fill_arrays(){
-    for (int i=0; i<256; i++){
-        b[i] = 1.0;
-        c[i] = 2.0;
-
-    }
-}
-
-int check_arrays(){
-    int ret = 0;
-    for (int i=0; i<256; i++){
-        if (a[i] == 3)
-            continue;
-        else
-            printf("FAIL, corruption in arithmetic");
-            ret =  -1;
-            break;
-    }
-    return ret;
-}
-
-void print_help(){
-    printf("-h : Help\n");
-    printf("-d <delay> : Delay in useconds\n");
-    printf("-l <delay> : Loops\n");
-}
-
 int main(int argc, char **argv){
 
-    clock_t t;
     double avg_time_taken;
     double time_taken;
-
-    // initialize arrays
-    fill_arrays();
-
     int delay_value = 0; // in useconds
     long int loops = 10000000000;
-    int index;
-    int c;
 
-    opterr = 0;
-    while ((c = getopt (argc, argv, "hd:l:")) != -1)
-    switch (c){
+    srand((unsigned)time(NULL));
+    float x_value = 1000 * (float)rand()/RAND_MAX;
+    float y_value = 1000 * (float)rand()/RAND_MAX;
+
+    int key;
+    while ((key = getopt (argc, argv, "hd:l:x:y:")) != -1)
+    switch (key){
       case 'h':
         print_help();
         return 0;
@@ -73,6 +44,12 @@ int main(int argc, char **argv){
         break;
       case 'l':
         loops = atoi(optarg);
+        break;
+      case 'x':
+        x_value = atof(optarg);
+        break;
+      case 'y':
+        y_value = atof(optarg);
         break;
       case '?':
         if (optopt == 'd' || optopt == 'l')
@@ -87,10 +64,13 @@ int main(int argc, char **argv){
     }
 
 
+    // initialize arrays
+    fill_arrays_floats(&b[0],&c[0],x_value,y_value);
+
     struct timespec start, stop;
     double accum;
-
     clock_gettime( CLOCK_REALTIME, &start);
+
     for (int x=0; x<loops; x++){
         foo();
         if (delay_value){
@@ -103,15 +83,13 @@ int main(int argc, char **argv){
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
     
-    avg_time_taken =(accum) /loops;
+    avg_time_taken =(accum)/loops;
 
-    if (check_arrays())
+    if (check_arrays_float(x_value + y_value,&a[0]))
         return -1;
-
-
-    printf("Loops: %d\n",loops);
-    printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
-    printf("Total time: %.9g seconds to execute \n",accum);
-    printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
+    print_result(loops,delay_value,accum,avg_time_taken,
+            x_value,
+            y_value,
+            x_value+y_value);
     return 0;
 }
