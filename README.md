@@ -12,6 +12,20 @@ The code include examples for:
 
 ``` make ```
 
-## How to assign a cpu to run it : 
+## How to build these static
+
+Create static binary which runs across multiple distros
+
+``` make static```
+
+## How to clean
+
+``` make clean```
+
+## How to assign a cpu to run an example : 
 
 ``` ./add & taskset -cp 0 <PID> ```
+
+## How to run all examples in all CPUs available:
+
+``` ./run-all.sh ```
