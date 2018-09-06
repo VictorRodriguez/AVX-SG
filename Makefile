@@ -8,7 +8,6 @@ all:
 	gcc $(src_dir)basic_sub_asm.c -o $(build_dir)basic_sub_asm
 	gcc $(src_dir)basic_mul_asm.c -o $(build_dir)basic_mul_asm
 	gcc $(src_dir)basic_div_asm.c -o $(build_dir)basic_div_asm
-	gcc $(src_dir)basic_arit_asm.c -o $(build_dir)basic_arit_asm
 	gcc -O3 -march=haswell $(src_dir)basic_add_avx2.c -o $(build_dir)basic_add_avx2
 	gcc -O3 -march=haswell $(src_dir)stress_add_avx2.c -o $(build_dir)stress_add_avx2
 	gcc -O3 -march=skylake-avx512 $(src_dir)basic_add_avx512.c -o $(build_dir)basic_add_avx512
@@ -26,7 +25,6 @@ static:
 	gcc $(src_dir)basic_sub_asm.c -o $(build_dir)basic_sub_asm $(static_flags)
 	gcc $(src_dir)basic_mul_asm.c -o $(build_dir)basic_mul_asm $(static_flags)
 	gcc $(src_dir)basic_div_asm.c -o $(build_dir)basic_div_asm $(static_flags)
-	gcc $(src_dir)basic_arit_asm.c -o $(build_dir)basic_arit_asm $(static_flags)
 	gcc -O3 -march=haswell $(src_dir)basic_add_avx2.c -o $(build_dir)basic_add_avx2 $(static_flags)
 	gcc -O3 -march=haswell $(src_dir)stress_add_avx2.c -o $(build_dir)stress_add_avx2 $(static_flags)
 	gcc -O3 -march=skylake-avx512 $(src_dir)basic_add_avx512.c -o $(build_dir)basic_add_avx512 $(static_flags)

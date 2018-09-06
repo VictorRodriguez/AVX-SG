@@ -57,5 +57,6 @@ int main(int argc, char **argv){
     }
     else{
         printf("SKIP: instructions not supproted\n");
+        return -1;
     }
 }
