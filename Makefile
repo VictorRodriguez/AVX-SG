@@ -45,6 +45,13 @@ check: all
 	./$(build_dir)basic_add_avx512
 	./$(build_dir)basic_add_d_avx512
 	./$(build_dir)basic_add_i_avx512
+release:
+	mkdir -p avx-bench-basic
+	cp run-all.sh avx-bench-basic
+	cp -rf build/ avx-bench-basic/
+	tar -czvf avx-bench-basic.tar.gz avx-bench-basic/
+clean-release:
+	rm -rf avx-bench-basic*
 clean:
 	@find . -type f -executable -exec sh -c "file -i '{}' | grep -q 'x-executable; charset=binary'" \; -print | xargs rm -f
 	@rm -rf build
