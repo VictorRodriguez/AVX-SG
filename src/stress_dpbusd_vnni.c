@@ -7,9 +7,12 @@
 #include "common.h"
 
 #define BILLION 1E9
+#define N 256
 
-
-int N = 256;
+int32_t arr_a[N];
+int32_t arr_b[N];
+int32_t arr_c[N];
+int32_t result[N];
 
 void foo(){
 // Multiplies the individual unsigned bytes of the first source operand by the
@@ -18,21 +21,13 @@ void foo(){
 // accumulated in the destination dword element size operand.
 // This instruction supports memory fault suppression.
 
-int32_t arr_a[N];
-int32_t arr_b[N];
-int32_t arr_c[N];
-
-    for(int i = 0; i < N; i++) {
-        arr_a[i] = 2;
-        arr_b[i] = 2;
-        arr_c[i] = 2;
-    }
     __m128i A,B,C,values;
     for( int i = 0; i < N; i+=4){
         A = _mm_load_si128((__m128i*)&arr_a[i]);
         B = _mm_load_si128((__m128i*)&arr_b[i]);
         C = _mm_load_si128((__m128i*)&arr_c[i]);
         values = _mm_dpbusd_epi32(A,B,C);
+        _mm_store_si128((__m128i*)&result[i],values);
     }
 
     // alternative way to do this with fixed values
@@ -51,6 +46,7 @@ int main(int argc, char **argv){
     srand((unsigned)time(NULL));
     float x_value = 1000 * (float)rand()/RAND_MAX;
     float y_value = 1000 * (float)rand()/RAND_MAX;
+    float z_value = 1000 * (float)rand()/RAND_MAX;
 
     int key;
     while ((key = getopt (argc, argv, "hd:l:x:y:")) != -1)
@@ -83,6 +79,9 @@ int main(int argc, char **argv){
     }
 
 
+    fill_arrays_integers(&arr_a[0],N,(int)x_value);
+    fill_arrays_integers(&arr_b[0],N,(int)y_value);
+    fill_arrays_integers(&arr_c[0],N,(int)z_value);
 
     struct timespec start, stop;
     double accum;
@@ -102,11 +101,12 @@ int main(int argc, char **argv){
     
     avg_time_taken =(accum)/loops;
 
-    //if (check_arrays_float(x_value + y_value,&a[0]))
-    //    return -1;
-    //print_result(loops,delay_value,accum,avg_time_taken,
-    //        x_value,
-    //        y_value,
-    //        x_value+y_value);
+    int expected_res = (x_value*y_value) + z_value;
+    if (check_arrays_int(expected_res,&result[0],N))
+        return -1;
+    print_result(loops,delay_value,accum,avg_time_taken,
+            x_value,
+            y_value,
+            x_value+y_value);
     return 0;
 }

@@ -25,12 +25,30 @@ void print_help(){
     printf("-y <value> : floating value\n");
 }
 
+void fill_arrays_integers(int32_t *a,int N,int random_1){
+    for (int i=0; i<N; i++){
+        a[i] = (int32_t)random_1;
+    }
+}
 void fill_arrays_floats(float *b, float *c,
         float random_1, float random_2){
     for (int i=0; i<256; i++){
         b[i] = random_1;
         c[i] = random_2;
     }
+}
+
+int check_arrays_int(int result, int32_t *a, int N){
+    int ret = 0;
+    for (int i=0; i<N; i++){
+        if (a[i] == result)
+            continue;
+        else
+            printf("FAIL, corruption in arithmetic");
+            ret =  -1;
+            break;
+    }
+    return ret;
 }
 
 int check_arrays_float(float result, float *a){
