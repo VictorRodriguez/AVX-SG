@@ -9,10 +9,15 @@
 #define BILLION 1E9
 
 void foo(){
+// Multiplies the individual unsigned bytes of the first source operand by the
+// corresponding signed bytes of the second source operand, producing
+// intermediate signed word results. The word results are then summed and
+// accumulated in the destination dword element size operand.
+// This instruction supports memory fault suppression.
 
-    __m128i values = _mm_setr_epi32(0x1234, 0x2345, 0x3456, 0x4567);
+    __m128i values = _mm_setr_epi32(0x0003, 0x0003, 0x0003, 0x0003);
     values = _mm_dpbusd_epi32(values, values, values);
-    printf("%d",values[0]);
+    printf("%d\n",values[1]);
 }
 
 int main(int argc, char **argv){
