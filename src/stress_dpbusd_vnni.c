@@ -8,6 +8,9 @@
 
 #define BILLION 1E9
 
+
+int N = 256;
+
 void foo(){
 // Multiplies the individual unsigned bytes of the first source operand by the
 // corresponding signed bytes of the second source operand, producing
@@ -15,9 +18,27 @@ void foo(){
 // accumulated in the destination dword element size operand.
 // This instruction supports memory fault suppression.
 
-    __m128i values = _mm_setr_epi32(0x0003, 0x0003, 0x0003, 0x0003);
-    values = _mm_dpbusd_epi32(values, values, values);
-    printf("%d\n",values[1]);
+int32_t arr_a[N];
+int32_t arr_b[N];
+int32_t arr_c[N];
+
+    for(int i = 0; i < N; i++) {
+        arr_a[i] = 2;
+        arr_b[i] = 2;
+        arr_c[i] = 2;
+    }
+    __m128i A,B,C,values;
+    for( int i = 0; i < N; i+=4){
+        A = _mm_load_si128((__m128i*)&arr_a[i]);
+        B = _mm_load_si128((__m128i*)&arr_b[i]);
+        C = _mm_load_si128((__m128i*)&arr_c[i]);
+        values = _mm_dpbusd_epi32(A,B,C);
+    }
+
+    // alternative way to do this with fixed values
+    // __m128i values = _mm_setr_epi32(0x0003, 0x0003, 0x0003, 0x0003);
+    // values = _mm_dpbusd_epi32(values, values, values);
+    // printf("%d\n",values[1]);
 }
 
 int main(int argc, char **argv){
@@ -62,8 +83,6 @@ int main(int argc, char **argv){
     }
 
 
-    // initialize arrays
-    //fill_arrays_floats(&b[0],&c[0],x_value,y_value);
 
     struct timespec start, stop;
     double accum;
