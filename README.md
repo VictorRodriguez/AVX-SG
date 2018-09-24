@@ -38,9 +38,7 @@ instead of kill -9 <PID>
  
  ## How to run these examples w/o HW that support instructions (like AVX-512 or VNNI)
  
- Download the Intel Software Development Emmulator
- 
- https://software.intel.com/en-us/articles/intel-software-development-emulator
+ Download the [Intel Software Development Emmulator](https://software.intel.com/en-us/articles/intel-software-development-emulator)
  
 On LINUX* OS you can run your favorite shell under the control of Intel SDE:
 
