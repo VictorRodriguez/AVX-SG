@@ -50,5 +50,16 @@ For example running the compiled examples
 
 IMPORTANT: Is better to compile in other shell and not under the SDE shell , just use the SDE to run the examples
 
+### TODO
 
+Apart from: 
+``` 
+VPDPBUSD __m128i _mm_dpbusd_epi32(__m128i, __m128i, __m128i);
+``` 
 
+Extend VNNI to 
+
+``` 
+VPDPBUSD __m256i _mm256_dpbusd_epi32(__m256i, __m256i, __m256i);
+VPDPBUSD __m512i _mm512_dpbusd_epi32(__m512i, __m512i, __m512i);
+``` 
