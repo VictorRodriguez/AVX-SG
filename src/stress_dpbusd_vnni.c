@@ -56,12 +56,8 @@ int main(int argc, char **argv){
     int y_value = (rand() % MAXRAND) + 1;
     int z_value = (rand() % MAXRAND) + 1;
 
-    printf("x %d\n",x_value);
-    printf("y %d\n",y_value);
-    printf("z %d\n",z_value);
-
     int key;
-    while ((key = getopt (argc, argv, "hd:l:x:y:")) != -1)
+    while ((key = getopt (argc, argv, "hd:l:x:y:z:")) != -1)
     switch (key){
       case 'h':
         print_help();
@@ -78,6 +74,9 @@ int main(int argc, char **argv){
       case 'y':
         y_value = atof(optarg);
         break;
+      case 'z':
+        z_value = atof(optarg);
+        break;
       case '?':
         if (optopt == 'd' || optopt == 'l')
           fprintf (stderr, "Option -%c requires an argument.\n", optopt);
@@ -90,6 +89,9 @@ int main(int argc, char **argv){
         return -1;
     }
 
+    printf("x = %d\n",x_value);
+    printf("y = %d\n",y_value);
+    printf("z = %d\n",z_value);
 
     for (int i=0; i<N; i++){
         arr_a[i] = (int32_t)x_value;
@@ -120,9 +122,10 @@ int main(int argc, char **argv){
     printf("result = %d\n",result[0]);
     if (check_arrays_int(expected_res,&result[0],N))
         return -1;
-    print_result(loops,delay_value,accum,avg_time_taken,
+    print_result_vnni(loops,delay_value,accum,avg_time_taken,
             x_value,
             y_value,
+            z_value,
             expected_res);
     return 0;
 }
