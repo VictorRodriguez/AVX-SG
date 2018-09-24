@@ -7,6 +7,7 @@
 #include "common.h"
 
 #define BILLION 1E9
+#define MAXRAND 100
 #define N 256
 
 int32_t arr_a[N] = {0};
@@ -51,9 +52,9 @@ int main(int argc, char **argv){
     long int loops = 10000000000;
 
     srand((unsigned)time(NULL));
-    int x_value = (rand() % 3) + 1;
-    int y_value = (rand() % 3) + 1;
-    int z_value = (rand() % 3) + 1;
+    int x_value = (rand() % MAXRAND) + 1;
+    int y_value = (rand() % MAXRAND) + 1;
+    int z_value = (rand() % MAXRAND) + 1;
 
     printf("x %d\n",x_value);
     printf("y %d\n",y_value);
