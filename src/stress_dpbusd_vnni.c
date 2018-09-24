@@ -21,23 +21,20 @@ void foo(){
 // accumulated in the destination dword element size operand.
 // This instruction supports memory fault suppression.
 
-    for (int i=0; i<N; i++){
-        arr_a[i] = (int32_t)2;
-        arr_b[i] = (int32_t)2;
-        arr_c[i] = (int32_t)2;
-    }
     __m128i A,B,C,values;
     for( int i = 0; i < N; i+=4){
         A = _mm_load_si128((__m128i*)&arr_a[i]);
         B = _mm_load_si128((__m128i*)&arr_b[i]);
         C = _mm_load_si128((__m128i*)&arr_c[i]);
-        values = _mm_dpbusd_epi32(A,B,C);
+        values = _mm_dpbusd_epi32(C,B,A);
         _mm_store_si128((__m128i*)&result[i],values);
-        //printf("A = %d\n",A[0]);
-        //printf("B = %d\n",B[0]);
-        //printf("C = %d\n",C[0]);
-        //printf("values = %d\n",values[0]);
-        //printf("pre result = %d\n",result[0]);
+        /*
+        printf("A = %d\n",A[0]);
+        printf("B = %d\n",B[0]);
+        printf("C = %d\n",C[0]);
+        printf("values = %d\n",values[0]);
+        printf("pre result = %d\n",result[0]);
+        */
     }
 
     // alternative way to do this with fixed values
@@ -54,13 +51,13 @@ int main(int argc, char **argv){
     long int loops = 10000000000;
 
     srand((unsigned)time(NULL));
-    int x_value = (rand() % 100) + 1;
-    int y_value = (rand() % 100) + 1;
-    int z_value = (rand() % 100) + 1;
+    int x_value = (rand() % 3) + 1;
+    int y_value = (rand() % 3) + 1;
+    int z_value = (rand() % 3) + 1;
 
-    //printf("x %d\n",x_value);
-    //printf("y %d\n",y_value);
-    //printf("z %d\n",z_value);
+    printf("x %d\n",x_value);
+    printf("y %d\n",y_value);
+    printf("z %d\n",z_value);
 
     int key;
     while ((key = getopt (argc, argv, "hd:l:x:y:")) != -1)
@@ -93,9 +90,11 @@ int main(int argc, char **argv){
     }
 
 
-    //fill_arrays_integers(&arr_a[0],N,(int)x_value);
-    //fill_arrays_integers(&arr_b[0],N,(int)y_value);
-    //fill_arrays_integers(&arr_c[0],N,(int)z_value);
+    for (int i=0; i<N; i++){
+        arr_a[i] = (int32_t)x_value;
+        arr_b[i] = (int32_t)y_value;
+        arr_c[i] = (int32_t)z_value;
+    }
 
     struct timespec start, stop;
     double accum;
@@ -115,7 +114,7 @@ int main(int argc, char **argv){
     
     avg_time_taken =(accum)/loops;
 
-    int expected_res = (arr_a[0]*arr_b[0]) + arr_c[0];
+    int expected_res = ((x_value*y_value) + z_value);
     printf("expect result = %d\n",expected_res);
     printf("result = %d\n",result[0]);
     if (check_arrays_int(expected_res,&result[0],N))
