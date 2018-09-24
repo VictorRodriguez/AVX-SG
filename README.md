@@ -35,3 +35,22 @@ If you want to kill all the processes running in the system, you can use:
 ``` pkill -f build/<file> ```
 
 instead of kill -9 <PID>
+ 
+ ## How to run these examples w/o HW that support instructions (like AVX-512 or VNNI)
+ 
+ Download the Intel Software Development Emmulator
+ 
+ https://software.intel.com/en-us/articles/intel-software-development-emulator
+ 
+On LINUX* OS you can run your favorite shell under the control of Intel SDE:
+
+``` path-to-kit/sde(64) -- /bin/tcsh ```
+
+And everything you run from there will be run under the control of Intel SDE.
+
+For example running the compiled examples 
+
+IMPORTANT: Is better to compile in other shell and not under the SDE shell , just use the SDE to run the examples
+
+
+
