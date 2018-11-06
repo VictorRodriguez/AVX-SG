@@ -64,6 +64,16 @@ then
     avx512_flag=true
 fi
 
+grep vnni /proc/cpuinfo &> /dev/null
+RET=$?
+if [ $RET -eq 0 ]
+then
+    patern=build/stress_dpbusd_vnni
+    run_basic
+    echo "This system can run AVX512 benchmarks"
+    echo "Run as $0 avx512"
+    avx512_flag=true
+fi
 
 if [ "$1" == "avx2" ]; then
     if $avx2_flag ; then
