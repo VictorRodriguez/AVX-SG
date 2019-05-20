@@ -5,8 +5,11 @@
 #include <unistd.h>
 #include <immintrin.h>
 
+// slow fail
+//#define LOOPS 1000000000000
 
-#define LOOPS 1000000000000
+// fast fail
+#define LOOPS 1000000000
 
 float a[256] = {0};
 float b[256] = {0};
@@ -42,5 +45,8 @@ int main(int argc, char **argv){
     //do operation
     for (int x=0; x<LOOPS; x++){
         foo();
+	if (x >= LOOPS/2){
+		__asm__("ud2");
+	}
     }
 }
