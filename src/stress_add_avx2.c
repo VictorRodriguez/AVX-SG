@@ -8,7 +8,7 @@
 
 #define BILLION 1E9
 
-float a[256] = {0}; 
+float a[256] = {0};
 float b[256] = {0};
 float c[256] = {0};
 

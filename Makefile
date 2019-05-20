@@ -16,6 +16,7 @@ all:
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_avx512.c -o $(build_dir)stress_add_avx512
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_d_avx512.c -o $(build_dir)stress_add_d_avx512
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_i_avx512.c -o $(build_dir)stress_add_i_avx512
+	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_avx512_w_ud2.c -o $(build_dir)stress_add_avx512_w_ud2
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 
