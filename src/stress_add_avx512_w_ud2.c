@@ -6,7 +6,7 @@
 #include <immintrin.h>
 
 
-#define LOOPS 1000000
+#define LOOPS 1000000000000
 
 float a[256] = {0};
 float b[256] = {0};
@@ -38,11 +38,9 @@ int main(int argc, char **argv){
 
     // initialize arrays
     fill_arrays_floats(&b[0],&c[0],x_value,y_value);
+
     //do operation
     for (int x=0; x<LOOPS; x++){
         foo();
-        if (x == LOOPS/2){
-            __asm__("ud2");
-        }
     }
 }
