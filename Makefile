@@ -20,6 +20,9 @@ all:
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 
+matrix:
+	gcc -O3 -march=haswell $(src_dir)test_matrix_mul.c -o $(build_dir)test_matrix_mul
+
 static:
 	mkdir -p $(build_dir)
 	gcc $(src_dir)basic_add_asm.c -o $(build_dir)basic_add_asm $(static_flags)
