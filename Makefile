@@ -21,7 +21,9 @@ all:
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 
 matrix:
+	mkdir -p $(build_dir)
 	gcc -O3 -march=haswell $(src_dir)test_matrix_mul.c -o $(build_dir)test_matrix_mul
+	gcc -O3 -march=haswell $(src_dir)matrix_mul.c -o $(build_dir)matrix_mul
 
 static:
 	mkdir -p $(build_dir)
