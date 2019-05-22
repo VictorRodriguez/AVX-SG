@@ -23,7 +23,7 @@ void multiply_w_fma(float mat1[][N], float mat2[][N], float res[][N]) {
     int i, j, k;
     for (i = 0; i < N; i++)
     {
-        for (j = 0; j < N; j++)
+        for (j = 0; j < N; j += sizeof(__m256)/sizeof(float))
         {
             res[i][j] = 0;
             C =  _mm256_load_ps(&res[i][j]);
