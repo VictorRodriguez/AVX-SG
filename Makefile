@@ -16,10 +16,13 @@ all:
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_avx512.c -o $(build_dir)stress_add_avx512
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_d_avx512.c -o $(build_dir)stress_add_d_avx512
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_i_avx512.c -o $(build_dir)stress_add_i_avx512
-	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_avx512_w_ud2.c -o $(build_dir)stress_add_avx512_w_ud2
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 
+ud_test:
+	mkdir -p $(build_dir)
+	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_avx512_w_ud2.c -o $(build_dir)stress_add_avx512_w_ud2
+	gcc -O3 -march=skylake-avx512 -pthread $(src_dir)stress_add_avx512_multi_thread_w_ud2.c -o $(build_dir)stress_add_avx512_multi_thread_w_ud2
 matrix:
 	mkdir -p $(build_dir)
 	gcc -O3 -march=haswell $(src_dir)test_matrix_mul.c -o $(build_dir)test_matrix_mul
