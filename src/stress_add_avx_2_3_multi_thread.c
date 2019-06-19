@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <immintrin.h>
 #include <pthread.h>
 
@@ -18,6 +19,24 @@ float a_512[256] = {0};
 float b[256] = {0};
 float c[256] = {0};
 
+void wrmsr_on_cpu(int cpu, int reg, u_int64_t v){
+
+    int fd;
+    char msr_file_name[64];
+	sprintf(msr_file_name, "/dev/cpu/%d/msr", cpu);
+	fd = open(msr_file_name, O_WRONLY);
+	if (fd < 0) {
+        printf("Error opening file to write MSR");
+	}
+
+    int rc = pwrite(fd, &v, sizeof(v), reg);
+    if (rc != sizeof(v)) {
+        printf("Unable to write cpu:%d\n", cpu);
+        printf("Register:%d\n",reg);
+    }
+
+	close(fd);
+}
 
 void fill_arrays_floats(float random_1, float random_2){
     for (int i=0; i<256; i++){
@@ -63,6 +82,9 @@ void *ThreadFoo(void *vargp) {
     }
 }
 
+void write_msr(){
+
+}
 int main(int argc, char **argv){
 
     float x_value = 1000 * (float)rand()/RAND_MAX;
@@ -80,8 +102,11 @@ int main(int argc, char **argv){
 	}
 
     // if we want to capture on the scope, uncoment this lines
-    //sleep(5);
-    //return 0;
+    sleep(5);
+    int reg = 0x0;
+    u_int64_t value = 0x0;
+    wrmsr_on_cpu(0,reg,value);
+    return 0;
 
     for (int i = 0; i < THREADS; i++){
         pthread_join(tid[i], NULL);
