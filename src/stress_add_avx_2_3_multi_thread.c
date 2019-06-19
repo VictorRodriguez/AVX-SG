@@ -10,7 +10,7 @@
 //#define LOOPS 1000000000000
 
 // fast loop
-#define LOOPS 1000000
+#define LOOPS 10000000
 #define THREADS 48
 
 float a_256[256] = {0};
@@ -43,23 +43,23 @@ void foo_256(){
         }
 }
 
-//void foo_512(){
-//
-//    //do operation
-//	__m512 result,B,C;
-//        for (int i=0; i<256; i+=16){
-//            B =  _mm512_load_ps(&b[i]);
-//            C =  _mm512_load_ps(&c[i]);
-//            result = _mm512_add_ps(B,C);
-//            _mm512_store_ps(&a_512[i], result);
-//        }
-//
-//}
+void foo_512(){
+
+    //do operation
+	__m512 result,B,C;
+        for (int i=0; i<256; i+=16){
+            B =  _mm512_load_ps(&b[i]);
+            C =  _mm512_load_ps(&c[i]);
+            result = _mm512_add_ps(B,C);
+            _mm512_store_ps(&a_512[i], result);
+        }
+
+}
 
 void *ThreadFoo(void *vargp) {
     for (int x=0; x<LOOPS; x++){
         foo_256();
-        //foo_512();
+        foo_512();
     }
 }
 
@@ -79,15 +79,26 @@ int main(int argc, char **argv){
         pthread_create(&(tid[i]), NULL, ThreadFoo,NULL);
 	}
 
+    // if we want to capture on the scope, uncoment this lines
+    //sleep(5);
+    //return 0;
+
     for (int i = 0; i < THREADS; i++){
         pthread_join(tid[i], NULL);
     }
 
     for (int i=0; i<256; i++){
         if (a_256[i] != result){
-            printf("Error in element %d\n",i);
+            printf("Error in a_256, element %d\n",i);
             return -1;
         }
+        //else {printf("a_256 pass\n");}
+
+        if (a_512[i] != result){
+            printf("Error in a_512, element %d\n",i);
+            return -1;
+        }
+        //else{printf("a_512 pass\n");}
     }
     printf("Test PASS\n");
 
