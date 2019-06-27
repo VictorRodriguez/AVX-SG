@@ -91,6 +91,10 @@ void *ThreadFoo(void *vargp) {
 
 int main(int argc, char **argv){
 
+    time_t  seed = time(0);
+    printf("random seed = %d\n", seed);
+    srand(seed);
+
     float x_value = 1000 * (float)rand()/RAND_MAX;
     float y_value = 1000 * (float)rand()/RAND_MAX;
 
