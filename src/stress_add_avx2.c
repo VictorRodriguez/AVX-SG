@@ -14,7 +14,7 @@ float c[256] = {0};
 
 void foo(){
     __m256 result,B,C;
-        for (int i=0; i<256; i+=8){
+        for (int i=0; i<256; i+=sizeof(__m256)/sizeof(float)){
             B =  _mm256_load_ps(&b[i]);
             C =  _mm256_load_ps(&c[i]);
             result = _mm256_add_ps(B,C);
