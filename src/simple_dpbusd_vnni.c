@@ -52,8 +52,15 @@ void foo(){
 	src = _mm_loadu_si128((__m128i*)&arr_src);
 	print128_num_32(src);
 
+	// test basic _mm_add_epi16
 	//result = _mm_add_epi16(A,B);
+
+	// test basic _mm_maddubs_epi16
+	// Vertically multiply two 8-bit integers,
+	// then horizontally add adjacent pairs of 16-bit integers
 	//result = _mm_maddubs_epi16(A,B);
+
+	// PERFORM THE DOT PRODUCT OPERATION USING FUSED INSTRUCTION
 	result =  _mm_dpbusds_epi32(src,A,B);
 	print128_num_32(result);
 
