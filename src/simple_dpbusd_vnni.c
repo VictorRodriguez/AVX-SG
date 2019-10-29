@@ -1,55 +1,67 @@
+/*
+* References:
+	* https://software.intel.com/en-us/articles/intel-advanced-vector-extensions-512-intel-avx-512-new-vector-neural-network-instruction
+	* https://en.wikichip.org/wiki/x86/avx512vnni
+
+*/
+
 #include <stdio.h>
 #include <immintrin.h>
 #include <time.h>
 #include <stdint.h>
 
-#define MAXRAND 100
-#define N 16
+#define MAXRAND 10
+#define N_8 16
+#define N_16 8
+#define N_32 4
 
 
-void print128_num_32(__m128i var)
-{
+void print128_num_32(__m128i var) {
     uint32_t *val = (uint32_t*) &var;
-    printf("Numerical: %i %i %i %i \n",
-           val[0], val[1], val[2], val[3]);
+	for(int i = 0; i < N_32; i++)
+		printf("%i ",val[1]);
+	printf("\n");
 }
-void print128_num_16(__m128i var)
-{
+void print128_num_16(__m128i var){
     uint16_t *val = (uint16_t*) &var;
-    printf("Numerical: %i %i %i %i %i %i %i %i \n",
-           val[0], val[1], val[2], val[3], val[4], val[5],
-           val[6], val[8]);
+	for(int i = 0; i < N_16; i++)
+		printf("%i ",val[1]);
+	printf("\n");
 }
 
-void print128_num_8(__m128i var)
-{
+void print128_num_8(__m128i var){
     uint8_t *val = (uint8_t*) &var;
-    printf("Numerical: %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i %i \n",
-           val[0], val[1], val[2], val[3], val[4], val[5],
-           val[6], val[7], val[8], val[9], val[10], val[11],
-           val[12], val[13], val[14], val[15]);
+	for(int i = 0; i < N_8; i++)
+		printf("%i ",val[1]);
+	printf("\n");
 }
 
-void foo(){
+void foo(int a, int b, int c){
 
-	uint8_t arr_a[N];
-	uint8_t arr_b[N];
+	uint8_t arr_a[N_8];
+	uint8_t arr_b[N_8];
 	uint32_t arr_src[4] = {1,1,1,1};
 
-    for (int i=0; i<N; i++){
-        arr_a[i] = 3;
-        arr_b[i] = 5;
+    for (int i=0; i<N_8; i++){
+        arr_a[i] = (uint8_t)a;
+        arr_b[i] = (uint8_t)b;
 	}
 
+    for (int i=0; i<N_32; i++){
+        arr_src[i] = c;
+	}
     __m128i A,B,src,result;
 
 	A = _mm_loadu_si128((__m128i*)&arr_a);
+	printf("A = ");
 	print128_num_8(A);
 
 	B = _mm_loadu_si128((__m128i*)&arr_b);
+	printf("B = ");
 	print128_num_8(B);
 
 	src = _mm_loadu_si128((__m128i*)&arr_src);
+	printf("src = ");
 	print128_num_32(src);
 
 	// test basic _mm_add_epi16
@@ -62,13 +74,19 @@ void foo(){
 
 	// PERFORM THE DOT PRODUCT OPERATION USING FUSED INSTRUCTION
 	result =  _mm_dpbusds_epi32(src,A,B);
+	printf("result = ");
 	print128_num_32(result);
 
 }
 
 int main(int argc, char **argv){
 
-    foo();
+	srand((unsigned)time(NULL));
+	int a =  (rand() % MAXRAND) + 1;
+	int b =  (rand() % MAXRAND) + 1;
+	int c =  (rand() % MAXRAND) + 1;
+
+    foo(a,b,c);
 
     return 0;
 }
