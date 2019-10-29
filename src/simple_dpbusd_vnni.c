@@ -40,7 +40,7 @@ void foo(int a, int b, int c){
 
 	uint8_t arr_a[N_8];
 	uint8_t arr_b[N_8];
-	uint32_t arr_src[4] = {1,1,1,1};
+	uint32_t arr_src[N_32];
 
     for (int i=0; i<N_8; i++){
         arr_a[i] = (uint8_t)a;
@@ -53,16 +53,8 @@ void foo(int a, int b, int c){
     __m128i A,B,src,result;
 
 	A = _mm_loadu_si128((__m128i*)&arr_a);
-	printf("A = ");
-	print128_num_8(A);
-
 	B = _mm_loadu_si128((__m128i*)&arr_b);
-	printf("B = ");
-	print128_num_8(B);
-
 	src = _mm_loadu_si128((__m128i*)&arr_src);
-	printf("src = ");
-	print128_num_32(src);
 
 	// test basic _mm_add_epi16
 	//result = _mm_add_epi16(A,B);
@@ -74,6 +66,16 @@ void foo(int a, int b, int c){
 
 	// PERFORM THE DOT PRODUCT OPERATION USING FUSED INSTRUCTION
 	result =  _mm_dpbusds_epi32(src,A,B);
+
+	printf("A = ");
+	print128_num_8(A);
+
+	printf("B = ");
+	print128_num_8(B);
+
+	printf("src = ");
+	print128_num_32(src);
+
 	printf("result = ");
 	print128_num_32(result);
 
