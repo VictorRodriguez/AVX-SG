@@ -18,6 +18,7 @@ all:
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_i_avx512.c -o $(build_dir)stress_add_i_avx512
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
+	gcc -O3 -march=icelake-server $(src_dir)simple_dpbusd_vnni.c -o $(build_dir)simple_dpbusd_vnni
 
 ud_test:
 	mkdir -p $(build_dir)
