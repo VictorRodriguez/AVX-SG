@@ -30,6 +30,13 @@ void foo(){
         }
 }
 
+void foo_simple(){
+	for (int i=0; i<256; i+=8){
+		result[i] = (a[i]*b[i]) + c[i];
+	}
+
+}
+
 int main(){
 
     float a_value = 2.0;
@@ -46,6 +53,7 @@ int main(){
     }
 
     foo();
+    foo_simple();
 
     for ( int x = 0 ; x < 256 ; x++){
         if (result[x] != expected_result){
