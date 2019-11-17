@@ -11,61 +11,64 @@
 #include <stdint.h>
 
 #define MAXRAND 10
-#define N_8 16
-#define N_16 8
-#define N_32 4
+#define NUM_8B_INT_IN_M128  (sizeof(__m128i)/sizeof(uint8_t))
+#define NUM_16B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint16_t))
+#define NUM_32B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint32_t))
 
 
 void print128_num_32(__m128i var) {
     uint32_t *val = (uint32_t*) &var;
-	for(int i = 0; i < N_32; i++)
+	for(int i = 0; i < NUM_32B_INT_IN_M128; i++)
 		printf("%i ",val[1]);
 	printf("\n");
 }
 void print128_num_16(__m128i var){
     uint16_t *val = (uint16_t*) &var;
-	for(int i = 0; i < N_16; i++)
+	for(int i = 0; i < NUM_16B_INT_IN_M128; i++)
 		printf("%i ",val[1]);
 	printf("\n");
 }
 
 void print128_num_8(__m128i var){
     uint8_t *val = (uint8_t*) &var;
-	for(int i = 0; i < N_8; i++)
+	for(int i = 0; i < NUM_8B_INT_IN_M128; i++)
 		printf("%i ",val[1]);
 	printf("\n");
 }
 
+__m128i A,B,src,result;
+
 void foo(int a, int b, int c){
 
-	uint8_t arr_a[N_8];
-	uint8_t arr_b[N_8];
-	uint32_t arr_src[N_32];
+	uint8_t arr_a[NUM_8B_INT_IN_M128];
+	uint8_t arr_b[NUM_8B_INT_IN_M128];
+	uint32_t arr_src[NUM_32B_INT_IN_M128];
 
-    for (int i=0; i<N_8; i++){
+    for (int i=0; i<NUM_8B_INT_IN_M128; i++){
         arr_a[i] = (uint8_t)a;
         arr_b[i] = (uint8_t)b;
 	}
 
-    for (int i=0; i<N_32; i++){
+    for (int i=0; i<NUM_32B_INT_IN_M128; i++){
         arr_src[i] = c;
 	}
-    __m128i A,B,src,result;
 
 	A = _mm_loadu_si128((__m128i*)&arr_a);
 	B = _mm_loadu_si128((__m128i*)&arr_b);
 	src = _mm_loadu_si128((__m128i*)&arr_src);
 
-	// test basic _mm_add_epi16
-	//result = _mm_add_epi16(A,B);
-
-	// test basic _mm_maddubs_epi16
-	// Vertically multiply two 8-bit integers,
-	// then horizontally add adjacent pairs of 16-bit integers
-	//result = _mm_maddubs_epi16(A,B);
-
-	// PERFORM THE DOT PRODUCT OPERATION USING FUSED INSTRUCTION
 	result =  _mm_dpbusds_epi32(src,A,B);
+
+}
+
+int main(int argc, char **argv){
+
+	srand((unsigned)time(NULL));
+	int a =  (rand() % MAXRAND) + 1;
+	int b =  (rand() % MAXRAND) + 1;
+	int c =  (rand() % MAXRAND) + 1;
+
+    foo(a,b,c);
 
 	printf("A = ");
 	print128_num_8(A);
@@ -78,17 +81,6 @@ void foo(int a, int b, int c){
 
 	printf("result = ");
 	print128_num_32(result);
-
-}
-
-int main(int argc, char **argv){
-
-	srand((unsigned)time(NULL));
-	int a =  (rand() % MAXRAND) + 1;
-	int b =  (rand() % MAXRAND) + 1;
-	int c =  (rand() % MAXRAND) + 1;
-
-    foo(a,b,c);
 
     return 0;
 }
