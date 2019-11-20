@@ -17,6 +17,8 @@ all:
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_d_avx512.c -o $(build_dir)stress_add_d_avx512
 	gcc -O3 -march=skylake-avx512 $(src_dir)stress_add_i_avx512.c -o $(build_dir)stress_add_i_avx512
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32
+
+vnni:
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 	gcc -O3 -march=icelake-server $(src_dir)simple_dpbusd_vnni.c -o $(build_dir)simple_dpbusd_vnni
 
@@ -48,15 +50,13 @@ static:
 	gcc -O3 -march=skylake-avx512 -mavx5124vnniw $(src_dir)4dpwssd_epi32.c -o $(build_dir)4dpwssd_epi32 $(static_flags)
 	gcc -O3 -march=icelake-server $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni $(static_flags)
 
-check: all
+check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
 	./$(build_dir)basic_mul_asm
 	./$(build_dir)basic_div_asm
 	./$(build_dir)basic_add_avx2
-	./$(build_dir)basic_add_avx512
-	./$(build_dir)basic_add_d_avx512
-	./$(build_dir)basic_add_i_avx512
+
 release:
 	mkdir -p avx-bench-basic
 	cp run-all.sh avx-bench-basic
