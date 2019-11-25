@@ -20,6 +20,7 @@ all:
 	$(CC) $(src_dir)basic_mul_asm.c -o $(build_dir)basic_mul_asm
 	$(CC) $(src_dir)basic_div_asm.c -o $(build_dir)basic_div_asm
 	$(CC_HSW) $(src_dir)basic_add_avx2.c -o $(build_dir)basic_add_avx2
+	$(CC_HSW) $(src_dir)basic_maddubs_epi.c -o $(build_dir)basic_maddubs_epi
 	$(CC_HSW) $(src_dir)stress_add_avx2.c -o $(build_dir)stress_add_avx2
 
 avx512:
@@ -74,5 +75,4 @@ clean-release:
 	rm -rf avx-bench-basic*
 
 clean:
-	@find . -type f -executable -exec sh -c "file -i '{}' | grep -q 'x-executable; charset=binary'" \; -print | xargs rm -f
-	@rm -rf build
+	@rm -rf build/*
