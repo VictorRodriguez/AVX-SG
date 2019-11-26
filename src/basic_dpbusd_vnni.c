@@ -1,6 +1,7 @@
 /*
 * References:
-	* https://software.intel.com/en-us/articles/intel-advanced-vector-extensions-512-intel-avx-512-new-vector-neural-network-instruction
+	* https://software.intel.com/en-us/articles/intel-advanced-vector-\
+	extensions-512-intel-avx-512-new-vector-neural-network-instruction
 	* https://en.wikichip.org/wiki/x86/avx512vnni
 
 */
@@ -9,32 +10,9 @@
 #include <immintrin.h>
 #include <time.h>
 #include <stdint.h>
+#include "common.h"
 
 #define MAXRAND 10
-#define NUM_8B_INT_IN_M128  (sizeof(__m128i)/sizeof(uint8_t))
-#define NUM_16B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint16_t))
-#define NUM_32B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint32_t))
-
-
-void print128_num_32(__m128i var) {
-    uint32_t *val = (uint32_t*) &var;
-	for(int i = 0; i < NUM_32B_INT_IN_M128; i++)
-		printf("%i ",val[1]);
-	printf("\n");
-}
-void print128_num_16(__m128i var){
-    uint16_t *val = (uint16_t*) &var;
-	for(int i = 0; i < NUM_16B_INT_IN_M128; i++)
-		printf("%i ",val[1]);
-	printf("\n");
-}
-
-void print128_num_8(__m128i var){
-    uint8_t *val = (uint8_t*) &var;
-	for(int i = 0; i < NUM_8B_INT_IN_M128; i++)
-		printf("%i ",val[1]);
-	printf("\n");
-}
 
 __m128i A,B,src,result;
 
