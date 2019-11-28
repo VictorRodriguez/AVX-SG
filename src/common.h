@@ -4,6 +4,10 @@
 #define NUM_16B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint16_t))
 #define NUM_32B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint32_t))
 
+#define NUM_8B_INT_IN_M256  (sizeof(__m256i)/sizeof(uint8_t))
+#define NUM_16B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint16_t))
+#define NUM_32B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint32_t))
+
 void print128_num_32(__m128i var) {
     uint32_t *val = (uint32_t*) &var;
 	for(int i = 0; i < NUM_32B_INT_IN_M128; i++)
@@ -20,6 +24,26 @@ void print128_num_16(__m128i var){
 void print128_num_8(__m128i var){
     uint8_t *val = (uint8_t*) &var;
 	for(int i = 0; i < NUM_8B_INT_IN_M128; i++)
+		printf("%i ",val[1]);
+	printf("\n");
+}
+
+void print256_num_32(__m256i var) {
+    uint32_t *val = (uint32_t*) &var;
+	for(int i = 0; i < NUM_32B_INT_IN_M256; i++)
+		printf("%i ",val[1]);
+	printf("\n");
+}
+void print256_num_16(__m256i var){
+    uint16_t *val = (uint16_t*) &var;
+	for(int i = 0; i < NUM_16B_INT_IN_M256; i++)
+		printf("%i ",val[1]);
+	printf("\n");
+}
+
+void print256_num_8(__m256i var){
+    uint8_t *val = (uint8_t*) &var;
+	for(int i = 0; i < NUM_8B_INT_IN_M256; i++)
 		printf("%i ",val[1]);
 	printf("\n");
 }
