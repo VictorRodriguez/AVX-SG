@@ -23,6 +23,9 @@ all:
 	$(CC_HSW) $(src_dir)basic_maddubs_epi.c -o $(build_dir)basic_maddubs_epi
 	$(CC_HSW) $(src_dir)stress_add_avx2.c -o $(build_dir)stress_add_avx2
 
+static_check:
+	cppcheck --enable=all --inconclusive --suppress=unusedFunction src/*
+
 avx512:
 	$(MKDIR) $(build_dir)
 	$(CC_SKX) $(src_dir)basic_add_avx512.c -o $(build_dir)basic_add_avx512
