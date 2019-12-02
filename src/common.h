@@ -8,6 +8,19 @@
 #define NUM_16B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint16_t))
 #define NUM_32B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint32_t))
 
+void fill_array_uint8_t_128(uint8_t *array,uint8_t value){
+    for (int i=0; i<NUM_8B_INT_IN_M128; i++){
+        array[i] = (uint8_t)value;
+	}
+}
+
+
+void fill_array_uint16_t_256(uint16_t *array,uint16_t value){
+    for (int i=0; i<NUM_16B_INT_IN_M256; i++){
+        array[i] = (uint16_t)value;
+	}
+}
+
 void print128_num_32(__m128i var) {
     uint32_t *val = (uint32_t*) &var;
 	for(int i = 0; i < NUM_32B_INT_IN_M128; i++)

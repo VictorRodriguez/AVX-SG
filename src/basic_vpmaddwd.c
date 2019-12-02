@@ -21,11 +21,8 @@ void foo(int a, int b, int c){
 	uint8_t arr_a[NUM_8B_INT_IN_M128];
 	uint8_t arr_b[NUM_8B_INT_IN_M128];
 
-    for (int i=0; i<NUM_8B_INT_IN_M128; i++){
-        arr_a[i] = (uint8_t)a;
-        arr_b[i] = (uint8_t)b;
-	}
-
+	fill_array_uint8_t_128(arr_a,a);
+	fill_array_uint8_t_128(arr_b,b);
 
 	A = _mm_loadu_si128((__m128i*)&arr_a);
 	B = _mm_loadu_si128((__m128i*)&arr_b);
@@ -36,18 +33,17 @@ void foo(int a, int b, int c){
 	them together followed a VPADDD which adds the accumulate value.
 
 	Likewise, for 8-bit values, three instructions are needed - VPMADDUBSW
-	which is used to multiply two 8-bit pairs and add them together, followed by a
-	VPMADDWD with the value 1 in order to simply up-convert the 16-bit values to
-	32-bit values, followed by the VPADDD instruction which adds the result to an
-	accumulator.
+	which is used to multiply two 8-bit pairs and add them together, followed
+	by a VPMADDWD with the value 1 in order to simply up-convert the 16-bit
+	values to 32-bit values, followed by the VPADDD instruction which adds the
+	result to an accumulator.
 	*/
 	result = _mm_maddubs_epi16(A,B);
 	result_temp =_mm256_setr_m128i(result,result);
 
 	uint16_t tmp_array[NUM_16B_INT_IN_M256];
-    for (int i=0; i<NUM_16B_INT_IN_M256; i++){
-        tmp_array[i] = (uint16_t)1;
-	}
+	fill_array_uint16_t_256(tmp_array,1);
+
 	ones_tmp = _mm256_loadu_si256((__m256i*)&tmp_array);
 	tmp = _mm256_madd_epi16(result_temp,ones_tmp);
 
