@@ -8,7 +8,7 @@
 
 #define BILLION 1E9
 
-float a[256] = {0}; 
+float a[256] = {0};
 float b[256] = {0};
 float c[256] = {0};
 
@@ -25,7 +25,6 @@ void foo(){
 int main(int argc, char **argv){
 
     double avg_time_taken;
-    double time_taken;
     int delay_value = 0; // in useconds
     long int loops = 10000000000;
 

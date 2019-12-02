@@ -24,7 +24,7 @@ void fill_array_uint16_t_256(uint16_t *array,uint16_t value){
 void print128_num_32(__m128i var) {
     uint32_t *val = (uint32_t*) &var;
 	for(int i = 0; i < NUM_32B_INT_IN_M128; i++)
-		printf("%i ",val[1]);
+		printf("%u ",val[1]);
 	printf("\n");
 }
 void print128_num_16(__m128i var){
@@ -44,7 +44,7 @@ void print128_num_8(__m128i var){
 void print256_num_32(__m256i var) {
     uint32_t *val = (uint32_t*) &var;
 	for(int i = 0; i < NUM_32B_INT_IN_M256; i++)
-		printf("%i ",val[1]);
+		printf("%u ",val[1]);
 	printf("\n");
 }
 void print256_num_16(__m256i var){
@@ -70,7 +70,7 @@ void print_result(long int loops,
         float result){
 
     printf("PASS: Benchmark completed\n");
-    printf("Loops: %d\n",loops);
+    printf("Loops: %ld\n",loops);
     printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
     printf("Total time: %.9g seconds to execute \n",accum);
     printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
@@ -89,7 +89,7 @@ void print_result_vnni(long int loops,
         float result){
 
     printf("PASS: Benchmark completed\n");
-    printf("Loops: %d\n",loops);
+    printf("Loops: %ld\n",loops);
     printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
     printf("Total time: %.9g seconds to execute \n",accum);
     printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );
@@ -107,11 +107,6 @@ void print_help(){
     printf("-y <value> : floating value\n");
 }
 
-void fill_arrays_integers(int32_t *a,int N,int random_1){
-    for (int i=0; i<N; i++){
-        a[i] = (int32_t)random_1;
-    }
-}
 void fill_arrays_floats(float *b, float *c,
         float random_1, float random_2){
     for (int i=0; i<256; i++){

@@ -53,16 +53,13 @@ void print_help(){
 
 int main(int argc, char **argv){
 
-    clock_t t;
     double avg_time_taken;
-    double time_taken;
 
     // initialize arrays
     fill_arrays();
 
     int delay_value = 0; // in useconds
     long int loops = 10000000000;
-    int index;
     int c;
 
     opterr = 0;
@@ -105,14 +102,14 @@ int main(int argc, char **argv){
     accum = ( stop.tv_sec - start.tv_sec )
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
-    
+
     avg_time_taken =(accum) /loops;
 
     if (check_arrays())
         return -1;
 
 
-    printf("Loops: %d\n",loops);
+    printf("Loops: %ld\n",loops);
     printf("Delay per function: %.9g in seconds \n",(delay_value/1E6));
     printf("Total time: %.9g seconds to execute \n",accum);
     printf("foo() took %.9g seconds in avg to execute \n", avg_time_taken );

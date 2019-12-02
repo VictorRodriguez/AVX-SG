@@ -25,7 +25,6 @@ void foo(){
 int main(int argc, char **argv){
 
     double avg_time_taken;
-    double time_taken;
     int delay_value = 0; // in useconds
     long int loops = 10000000000;
 
@@ -82,7 +81,7 @@ int main(int argc, char **argv){
     accum = ( stop.tv_sec - start.tv_sec )
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
-    
+
     avg_time_taken =(accum)/loops;
 
     if (check_arrays_float(x_value + y_value,&a[0]))
