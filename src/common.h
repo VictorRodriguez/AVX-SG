@@ -1,4 +1,6 @@
 #include <stdint.h>
+#include <unistd.h>
+#include <ctype.h>
 
 #define NUM_8B_INT_IN_M128  (sizeof(__m128i)/sizeof(uint8_t))
 #define NUM_16B_INT_IN_M128 (sizeof(__m128i)/sizeof(uint16_t))
@@ -7,6 +9,14 @@
 #define NUM_8B_INT_IN_M256  (sizeof(__m256i)/sizeof(uint8_t))
 #define NUM_16B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint16_t))
 #define NUM_32B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint32_t))
+
+struct test_parameters{
+   float x_value;
+   float y_value;
+   double avg_time_taken;
+   int delay_value;
+   long int loops;
+};
 
 void fill_array_uint8_t_128(uint8_t *array,uint8_t value){
     for (int i=0; i<NUM_8B_INT_IN_M128; i++){
@@ -141,3 +151,54 @@ int check_arrays_float(float result, float *a){
     return ret;
 }
 
+struct test_parameters parameters_handler(int argc, char **argv){
+
+    struct test_parameters param;
+
+    double avg_time_taken;
+    int delay_value = 0; // in useconds
+    long int loops = 10000000000;
+
+    srand((unsigned)time(NULL));
+    float x_value = 1000 * (float)rand()/RAND_MAX;
+    float y_value = 1000 * (float)rand()/RAND_MAX;
+
+    int key;
+    while ((key = getopt (argc, argv, "hd:l:x:y:")) != -1)
+    switch (key){
+      case 'h':
+        print_help();
+		exit(EXIT_SUCCESS);
+      case 'd':
+        delay_value = atoi(optarg);
+        break;
+      case 'l':
+        loops = atoi(optarg);
+        break;
+      case 'x':
+        x_value = atof(optarg);
+        break;
+      case 'y':
+        y_value = atof(optarg);
+        break;
+      case '?':
+        if (optopt == 'd' || optopt == 'l'){
+			fprintf (stderr, "Option -%c requires an argument.\n", optopt);
+			exit(EXIT_SUCCESS);}
+        else if (isprint (optopt)){
+			fprintf (stderr, "Unknown option `-%c'.\n", optopt);
+			exit(EXIT_SUCCESS);}
+        else{
+			fprintf (stderr,
+                   "Unknown option character `\\x%x'.\n",
+                   optopt);
+			exit(EXIT_SUCCESS);}
+    }
+
+	param.x_value = x_value;
+	param.y_value = y_value;
+	param.delay_value = delay_value;
+	param.loops = loops;
+
+    return param;
+}
