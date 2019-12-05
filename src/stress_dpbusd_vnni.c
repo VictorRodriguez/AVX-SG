@@ -55,38 +55,11 @@ int main(int argc, char **argv){
     int y_value = (rand() % MAXRAND) + 1;
     int z_value = (rand() % MAXRAND) + 1;
 
-    int key;
-    while ((key = getopt (argc, argv, "hd:l:x:y:z:")) != -1)
-    switch (key){
-      case 'h':
-        print_help();
-        return 0;
-      case 'd':
-        delay_value = atoi(optarg);
-        break;
-      case 'l':
-        loops = atoi(optarg);
-        break;
-      case 'x':
-        x_value = atof(optarg);
-        break;
-      case 'y':
-        y_value = atof(optarg);
-        break;
-      case 'z':
-        z_value = atof(optarg);
-        break;
-      case '?':
-        if (optopt == 'd' || optopt == 'l')
-          fprintf (stderr, "Option -%c requires an argument.\n", optopt);
-        else if (isprint (optopt))
-          fprintf (stderr, "Unknown option `-%c'.\n", optopt);
-        else
-          fprintf (stderr,
-                   "Unknown option character `\\x%x'.\n",
-                   optopt);
-        return -1;
-    }
+
+	struct test_parameters param;
+	param = parameters_handler(argc,argv);
+
+    fill_arrays_floats(&b[0],&c[0],param.x_value,param.y_value);
 
     printf("x = %d\n",x_value);
     printf("y = %d\n",y_value);

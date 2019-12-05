@@ -10,6 +10,10 @@
 #define NUM_16B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint16_t))
 #define NUM_32B_INT_IN_M256 (sizeof(__m256i)/sizeof(uint32_t))
 
+#define NUM_8B_INT_IN_M512  (sizeof(__m512i)/sizeof(uint8_t))
+#define NUM_16B_INT_IN_M512 (sizeof(__m512i)/sizeof(uint16_t))
+#define NUM_32B_INT_IN_M512 (sizeof(__m512i)/sizeof(uint32_t))
+
 struct test_parameters{
    float x_value;
    float y_value;
@@ -27,6 +31,12 @@ void fill_array_uint8_t_128(uint8_t *array,uint8_t value){
 
 void fill_array_uint16_t_256(uint16_t *array,uint16_t value){
     for (int i=0; i<NUM_16B_INT_IN_M256; i++){
+        array[i] = (uint16_t)value;
+	}
+}
+
+void fill_array_uint32_t_512(uint32_t *array,uint32_t value){
+    for (int i=0; i<NUM_32B_INT_IN_M512; i++){
         array[i] = (uint16_t)value;
 	}
 }
@@ -117,11 +127,15 @@ void print_help(){
     printf("-y <value> : floating value\n");
 }
 
-void fill_arrays_floats(float *b, float *c,
-        float random_1, float random_2){
-    for (int i=0; i<256; i++){
-        b[i] = random_1;
-        c[i] = random_2;
+void fill_array_float(float *array, int size,float value){
+    for (int i=0; i< size; i++){
+        array[i] = value;
+    }
+}
+
+void fill_array_int(int *array, int size, int value){
+    for (int i=0; i< size; i++){
+        array[i] = value;
     }
 }
 

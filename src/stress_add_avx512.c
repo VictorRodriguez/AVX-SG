@@ -27,8 +27,8 @@ int main(int argc, char **argv){
 	struct test_parameters param;
 	param = parameters_handler(argc,argv);
 
-    // initialize arrays
-    fill_arrays_floats(&b[0],&c[0],param.x_value,param.y_value);
+	fill_array_float(&b[0],sizeof(b)/sizeof(b[0]),param.x_value);
+	fill_array_float(&b[0],sizeof(b)/sizeof(b[0]),param.x_value);
 
     struct timespec start, stop;
     double accum;
