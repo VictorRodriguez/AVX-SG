@@ -62,6 +62,9 @@ static:
 	$(CC_HSW_static) $(src_dir)basic_add_avx2.c -o $(build_dir)basic_add_avx2
 	$(CC_HSW_static) $(src_dir)stress_add_avx2.c -o $(build_dir)stress_add_avx2
 
+bfloat16:
+	clang $(src_dir)basic_bfloat.c -o $(build_dir)basic_bfloat -march=cooperlake
+
 check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
