@@ -12,47 +12,43 @@
 #include "common.h"
 
 #define MAXRAND 10
+#define N 4
 
 __m128 A,B,result;
 
-void foo(int a, int b, int c){
+float floats[N] = {123.123};
 
-	uint8_t arr_a[NUM_8B_INT_IN_M128];
-	uint8_t arr_b[NUM_8B_INT_IN_M128];
+void foo(float a, float b){
 
-	fill_array_uint8_t_128(arr_a,a);
-	fill_array_uint8_t_128(arr_b,b);
+	float arr_a[4] = {a};
+	float arr_b[4] = {b};
 
-	A = _mm_loadu_si128((__m128i*)&arr_a);
-	B = _mm_loadu_si128((__m128i*)&arr_b);
+	printf("a array = %.6f\n",arr_a[0]);
+	printf("b array = %.6f\n",arr_b[0]);
+	printf("floats array = %.6f\n",floats[0]);
 
-	result = _mm_cvtne2ps_pbh(A,B);
+	A = _mm_loadu_ps(&arr_a[0]);
+	B = _mm_loadu_ps(&arr_b[0]);
 
+	result =  _mm_cvtneps_pbh(A);
+	_mm_store_ps(&floats[0],result);
+
+	printf("floats array after = %.6f\n",floats[0]);
+	printf("floats array after = %.6f\n",floats[1]);
+	printf("floats array after = %.6f\n",floats[2]);
+	printf("floats array after = %.6f\n",floats[3]);
 }
 
 int main(int argc, char **argv){
 
 	srand((unsigned)time(NULL));
-	int a =  (rand() % MAXRAND) + 1;
-	int b =  (rand() % MAXRAND) + 1;
-	int c =  (rand() % MAXRAND) + 1;
+	float a =  (rand() % MAXRAND) + 1;
+	float b =  (rand() % MAXRAND) + 1;
 
-    foo(a,b,c);
+	printf("a = %.6f\n", a);
+	printf("b = %.6f\n", b);
 
-/*
-	printf("A = ");
-	print128_num_8(A);
-
-	printf("B = ");
-	print128_num_8(B);
-
-	printf("result = ");
-	print128_num_16(result);
-
-	printf("result_temp = ");
-	print256_num_16(result_temp);
-	print256_num_32(tmp);
-*/
+    foo(a,b);
 
     return 0;
 }
