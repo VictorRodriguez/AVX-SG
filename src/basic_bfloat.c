@@ -17,7 +17,19 @@ https://software.intel.com/sites/default/files/managed/c5/15/architecture-instru
 
 __m128 A,B,result;
 
-float floats[N] = {123.123};
+float result_array[N] = {123.123};
+
+void print128_num(__m128 var){
+    float *val = (float*) &var;
+    printf("Numerical: %f %f %f %f \n",
+           val[0], val[1], val[2], val[3]);
+}
+
+void print128_num_fp16(__m128 var){
+    __fp16 *val = (__fp16*) &var;
+    printf("Numerical: %f %f %f %f \n",
+           val[0], val[1], val[2], val[3]);
+}
 
 void foo(float a, float b){
 
@@ -26,18 +38,18 @@ void foo(float a, float b){
 
 	printf("a array = %.6f\n",arr_a[0]);
 	printf("b array = %.6f\n",arr_b[0]);
-	printf("floats array = %.6f\n",floats[0]);
+	printf("result array = %.6f\n",result_array[0]);
 
 	A = _mm_loadu_ps(&arr_a[0]);
+	print128_num(A);
+
 	B = _mm_loadu_ps(&arr_b[0]);
+	print128_num(B);
 
-	result =  _mm_cvtneps_pbh(A);
-	_mm_store_ps(&floats[0],result);
+	result = _mm_cvtneps_pbh(A);
+	_mm_store_ps1(&result_array[0],result);
 
-	printf("floats array after = %.6f\n",floats[0]);
-	printf("floats array after = %.6f\n",floats[1]);
-	printf("floats array after = %.6f\n",floats[2]);
-	printf("floats array after = %.6f\n",floats[3]);
+	print128_num_fp16(result);
 }
 
 int main(int argc, char **argv){
