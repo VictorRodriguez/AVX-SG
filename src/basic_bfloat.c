@@ -46,10 +46,30 @@ void foo(float a, float b){
 	B = _mm_loadu_ps(&arr_b[0]);
 	print128_num(B,"B");
 
+	/* __m128bh _mm_cvtneps_pbh (__m128 a)
+	Convert packed single-precision (32-bit) floating-point elements in a to
+	packed BF16 (16-bit) floating-point elements, and store the results in dst. 
+	*/
 	result = _mm_cvtneps_pbh(A);
-	_mm_store_ps1(&result_array[0],result);
+	print128_num_fp16(result,"result _mm_cvtneps_pbh(A)");
 
-	print128_num_fp16(result,"result");
+	/* __m128bh _mm_cvtne2ps_pbh (__m128 a, __m128 b)
+	Convert packed single-precision (32-bit) floating-point elements in two
+	vectors a and b to packed BF16 (16-bit) floating-point elements, and store
+	the	results in single vector dst. */
+	result = _mm_cvtne2ps_pbh(A,B);
+	print128_num_fp16(result,"result _mm_cvtne2ps_pbh(A,B)");
+
+	/* __m128 _mm_dpbf16_ps (__m128 src, __m128bh a, __m128bh b)
+	Compute dot-product of BF16 (16-bit) floating-point pairs in a and b,
+	accumulating the intermediate single-precision (32-bit) floating-point
+	elements with elements in src, and store the results in dst.
+	*/
+	result = _mm_dpbf16_ps(A,A,B);
+	print128_num_fp16(result,"result _mm_dpbf16_ps(A,A,B)");
+
+	//TODO investigate how to print bfloat16 number
+	//_mm_store_ps1(&result_array[0],result);
 }
 
 int main(int argc, char **argv){
