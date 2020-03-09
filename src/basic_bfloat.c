@@ -1,8 +1,9 @@
 /*
 * References:
-	* https://software.intel.com/en-us/articles/intel-advanced-vector-\
-	extensions-512-intel-avx-512-new-vector-neural-network-instruction
-	* https://en.wikichip.org/wiki/x86/avx512vnni
+https://www.anandtech.com/show/14179/intel-manual-updates-bfloat16-for-cooper-lake-xeon-scalable-only
+
+https://software.intel.com/sites/default/files/managed/c5/15/architecture-instruction-set-extensions-programming-reference.pdf
+
 */
 
 #include <stdio.h>
