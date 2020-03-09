@@ -19,16 +19,16 @@ __m128 A,B,result;
 
 float result_array[N] = {123.123};
 
-void print128_num(__m128 var){
+void print128_num(__m128 var, char* variable){
     float *val = (float*) &var;
-    printf("Numerical: %f %f %f %f \n",
+    printf("%s: %f %f %f %f \n",variable,
            val[0], val[1], val[2], val[3]);
 }
 
-void print128_num_fp16(__m128 var){
+void print128_num_fp16(__m128 var, char* variable){
     __fp16 *val = (__fp16*) &var;
-    printf("Numerical: %f %f %f %f \n",
-           val[0], val[1], val[2], val[3]);
+    printf("%s: %f %f %f %f \n",variable,
+           (__fp16)val[0], (__fp16)val[1],(__fp16)val[2],(__fp16)val[3]);
 }
 
 void foo(float a, float b){
@@ -41,15 +41,15 @@ void foo(float a, float b){
 	printf("result array = %.6f\n",result_array[0]);
 
 	A = _mm_loadu_ps(&arr_a[0]);
-	print128_num(A);
+	print128_num(A,"A");
 
 	B = _mm_loadu_ps(&arr_b[0]);
-	print128_num(B);
+	print128_num(B,"B");
 
 	result = _mm_cvtneps_pbh(A);
 	_mm_store_ps1(&result_array[0],result);
 
-	print128_num_fp16(result);
+	print128_num_fp16(result,"result");
 }
 
 int main(int argc, char **argv){
