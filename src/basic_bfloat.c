@@ -25,10 +25,19 @@ void print128_num(__m128 var, char* variable){
            val[0], val[1], val[2], val[3]);
 }
 
+// This fuction was created by Ryan, Mark D
+// Thanks Mark !!
 void print128_num_fp16(__m128 var, char* variable){
-    __fp16 *val = (__fp16*) &var;
-    printf("%s: %f %f %f %f \n",variable,
-           (__fp16)val[0], (__fp16)val[1],(__fp16)val[2],(__fp16)val[3]);
+	uint8_t ar[16];
+    _mm_storeu_ps(ar, result);
+    uint16_t *bfloats = (uint16_t*) &ar[0];
+	printf("%s:\n",variable);
+    for (size_t i = 0; i < 4; i++) {
+            uint32_t tmp = ((uint32_t)bfloats[i]) << 16;
+            float* ftmp_ptr = (float *)&tmp;
+            printf("%f\n", *ftmp_ptr);
+    }
+
 }
 
 void foo(float a, float b){
