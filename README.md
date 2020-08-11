@@ -1,7 +1,7 @@
-# Advanced Vector Extensions (AVX) basic
+# Advanced Vector Extensions (AVX) stress generator : AVX-SG
 
 
-Advanced Vector Extensions (AVX) are extensions to the x86 instruction set architecture for microprocessors for SIMD technology. This tutorial shows how to use the AVX instructions from the instructions from the C code prespective
+Advanced Vector Extensions (AVX) are extensions to the x86 instruction set architecture for microprocessors for SIMD technology. This project shows how to use the AVX instructions from the instructions from the C code prespective. Using templates the users of AVX-SG can generate stress code for latest x86-64 platforms ( including BFLOAT16 and VNNI ) 
 
 The code include examples for: 
   * SSE technology
