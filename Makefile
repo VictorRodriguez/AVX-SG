@@ -38,8 +38,8 @@ avx512:
 vnni:
 	$(MKDIR) $(build_dir)
 	$(CC_HSW) $(src_dir)basic_vpmaddwd.c -o $(build_dir)basic_vpmaddwd
-	$(CC_ICX) $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 	$(CC_ICX) $(src_dir)basic_dpbusd_vnni.c -o $(build_dir)simple_dpbusd_vnni
+	$(CC_ICX) $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 
 ud_test:
 	$(MKDIR) $(build_dir)
