@@ -59,7 +59,8 @@ int main(int argc, char **argv){
 	struct test_parameters param;
 	param = parameters_handler(argc,argv);
 
-    fill_arrays_floats(&b[0],&c[0],param.x_value,param.y_value);
+    fill_array_int(&arr_b[0],sizeof(arr_b[0])/sizeof(int32_t),param.x_value);
+    fill_array_int(&arr_c[0],sizeof(arr_b[0])/sizeof(int32_t),param.y_value);
 
     printf("x = %d\n",x_value);
     printf("y = %d\n",y_value);
@@ -86,8 +87,8 @@ int main(int argc, char **argv){
     accum = ( stop.tv_sec - start.tv_sec )
           + ( stop.tv_nsec - start.tv_nsec )
             / BILLION;
-    
-    avg_time_taken =(accum)/loops;
+
+	avg_time_taken =(accum)/loops;
 
     int expected_res = ((x_value*y_value) + z_value);
     printf("expect result = %d\n",expected_res);
