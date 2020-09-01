@@ -2,6 +2,8 @@ static_flags = -static
 src_dir = src/
 build_dir = build/
 exp_dir = src/experiments/
+imgs_dir = docker_images/templates
+
 
 MKDIR  := mkdir -p
 CC_HSW := gcc -O3 -march=haswell
@@ -40,6 +42,8 @@ vnni:
 	$(CC_HSW) $(src_dir)basic_vpmaddwd.c -o $(build_dir)basic_vpmaddwd
 	$(CC_ICX) $(src_dir)basic_dpbusd_vnni.c -o $(build_dir)simple_dpbusd_vnni
 	$(CC_ICX) $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
+	cp $(build_dir)simple_dpbusd_vnni $(imgs_dir)
+	cd $(imgs_dir) && docker build -t vnni_test .
 
 ud_test:
 	$(MKDIR) $(build_dir)
