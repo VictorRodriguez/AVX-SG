@@ -71,6 +71,9 @@ static:
 bfloat16:
 	clang $(src_dir)basic_bfloat.c -o $(build_dir)basic_bfloat -march=cooperlake
 
+crypto:
+	$(CC_ICX) $(src_dir)basic_vpmadd52huq_i_avx512.c -o $(build_dir)basic_vpmadd52huq_i_avx512
+
 check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
