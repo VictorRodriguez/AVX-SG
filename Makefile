@@ -80,6 +80,9 @@ gfni:
 	$(CC_ICX) $(src_dir)basic_gf2p8affine_epi64_epi8.c -o $(build_dir)basic_gf2p8affine_epi64_epi8
 	$(CC_ICX) $(src_dir)basic_gf2p8mul_epi8.c -o $(build_dir)basic_gf2p8mul_epi8
 
+vaes:
+	$(CC_ICX) $(src_dir)basic_mm256_aesdec_epi128.c -o $(build_dir)basic_mm256_aesdec_epi128
+
 check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
