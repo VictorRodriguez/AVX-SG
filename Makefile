@@ -77,6 +77,8 @@ ifma:
 
 gfni:
 	$(CC_ICX) $(src_dir)basic_gf2p8affineinv_epi64_epi8.c -o $(build_dir)basic_gf2p8affineinv_epi64_epi8
+	$(CC_ICX) $(src_dir)basic_gf2p8affine_epi64_epi8.c -o $(build_dir)basic_gf2p8affine_epi64_epi8
+	$(CC_ICX) $(src_dir)basic_gf2p8mul_epi8.c -o $(build_dir)basic_gf2p8mul_epi8
 
 check:
 	./$(build_dir)basic_add_asm
