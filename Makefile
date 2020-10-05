@@ -71,6 +71,8 @@ static:
 bfloat16:
 	clang $(src_dir)basic_bfloat.c -o $(build_dir)basic_bfloat -march=cooperlake
 
+crypto: ifma gfni vaes clmul
+
 ifma:
 	$(CC_ICX) $(src_dir)basic_vpmadd52huq_i_avx512.c -o $(build_dir)basic_vpmadd52huq_i_avx512
 	$(CC_ICX) $(src_dir)basic_vpmadd52luq_i_avx512.c -o $(build_dir)basic_vpmadd52luq_i_avx512
