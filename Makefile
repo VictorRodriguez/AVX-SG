@@ -84,6 +84,10 @@ vaes:
 	$(CC_ICX) $(src_dir)basic_mm256_aesdec_epi128.c -o $(build_dir)basic_mm256_aesdec_epi128
 	$(CC_ICX) $(src_dir)basic_mm256_aesdeclast_epi128.c -o $(build_dir)basic_mm256_aesdeclast_epi128
 
+clmul:
+	$(CC_ICX) $(src_dir)basic_mm256_clmulepi64_epi128.c -o $(build_dir)basic_mm256_clmulepi64_epi128
+	$(CC_ICX) $(src_dir)basic_mm_clmulepi64_si128.c -o $(build_dir)basic_mm_clmulepi64_si128
+
 check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
