@@ -83,6 +83,8 @@ gfni:
 vaes:
 	$(CC_ICX) $(src_dir)basic_mm256_aesdec_epi128.c -o $(build_dir)basic_mm256_aesdec_epi128
 	$(CC_ICX) $(src_dir)basic_mm256_aesdeclast_epi128.c -o $(build_dir)basic_mm256_aesdeclast_epi128
+	$(CC_ICX) $(src_dir)basic_mm256_aesenc_epi128.c -o $(build_dir)basic__mm256_aesenc_epi128
+	$(CC_ICX) $(src_dir)basic_mm256_aesenclast_epi128.c -o $(build_dir)basic_mm256_aesenclast_epi128.c
 
 clmul:
 	$(CC_ICX) $(src_dir)basic_mm256_clmulepi64_epi128.c -o $(build_dir)basic_mm256_clmulepi64_epi128
