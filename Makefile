@@ -44,7 +44,7 @@ vnni:
 	$(CC_ICX) $(src_dir)stress_dpbusd_vnni.c -o $(build_dir)stress_dpbusd_vnni
 	cp $(build_dir)simple_dpbusd_vnni $(imgs_dir)
 
-vnni_container:
+vnni_container: vnni
 	cd $(imgs_dir) && docker build -t vnni_test .
 
 ud_test:
