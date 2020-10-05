@@ -73,6 +73,11 @@ bfloat16:
 
 crypto: ifma gfni vaes clmul
 
+crypto_container: clean crypto
+	cp $(build_dir)/* $(imgs_dir)
+	cp $(imgs_dir)/Dockerfile.crypto $(imgs_dir)/Dockerfile
+	cd $(imgs_dir) && docker build -t crypto_test .
+
 ifma:
 	$(CC_ICX) $(src_dir)basic_vpmadd52huq_i_avx512.c -o $(build_dir)basic_vpmadd52huq_i_avx512
 	$(CC_ICX) $(src_dir)basic_vpmadd52luq_i_avx512.c -o $(build_dir)basic_vpmadd52luq_i_avx512
@@ -86,7 +91,7 @@ vaes:
 	$(CC_ICX) $(src_dir)basic_mm256_aesdec_epi128.c -o $(build_dir)basic_mm256_aesdec_epi128
 	$(CC_ICX) $(src_dir)basic_mm256_aesdeclast_epi128.c -o $(build_dir)basic_mm256_aesdeclast_epi128
 	$(CC_ICX) $(src_dir)basic_mm256_aesenc_epi128.c -o $(build_dir)basic__mm256_aesenc_epi128
-	$(CC_ICX) $(src_dir)basic_mm256_aesenclast_epi128.c -o $(build_dir)basic_mm256_aesenclast_epi128.c
+	$(CC_ICX) $(src_dir)basic_mm256_aesenclast_epi128.c -o $(build_dir)basic_mm256_aesenclast_epi128
 
 clmul:
 	$(CC_ICX) $(src_dir)basic_mm256_clmulepi64_epi128.c -o $(build_dir)basic_mm256_clmulepi64_epi128
