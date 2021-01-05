@@ -97,6 +97,15 @@ clmul:
 	$(CC_ICX) $(src_dir)basic_mm256_clmulepi64_epi128.c -o $(build_dir)basic_mm256_clmulepi64_epi128
 	$(CC_ICX) $(src_dir)basic_mm_clmulepi64_si128.c -o $(build_dir)basic_mm_clmulepi64_si128
 
+amx:
+	$(CC) $(src_dir)mamx_basic.c -O2 -mamx-tile -o $(build_dir)mamx_basic
+	$(CC) $(src_dir)amxtile-2.c -O2 -mamx-tile -o $(build_dir)amxtile-2
+	$(CC) $(src_dir)amxbf16-dpbf16ps-2.c -O2 -mamx-tile -mamx-bf16 -o $(build_dir)bf16_dpbf16p
+	$(CC) $(src_dir)amxint8-dpbsud-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbsud
+	$(CC) $(src_dir)amxint8-dpbssd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd
+	$(CC) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbusd
+	$(CC) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbuud
+
 check:
 	./$(build_dir)basic_add_asm
 	./$(build_dir)basic_sub_asm
