@@ -98,6 +98,7 @@ clmul:
 	$(CC_ICX) $(src_dir)basic_mm_clmulepi64_si128.c -o $(build_dir)basic_mm_clmulepi64_si128
 
 amx:
+	@echo "Install latest version of master gcc or gcc 11"
 	$(CC) $(src_dir)mamx_basic.c -O2 -mamx-tile -o $(build_dir)mamx_basic
 	$(CC) $(src_dir)amxtile-2.c -O2 -mamx-tile -o $(build_dir)amxtile-2
 	$(CC) $(src_dir)amxbf16-dpbf16ps-2.c -O2 -mamx-tile -mamx-bf16 -o $(build_dir)bf16_dpbf16p
