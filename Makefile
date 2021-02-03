@@ -70,6 +70,7 @@ static:
 
 bfloat16:
 	clang $(src_dir)basic_bfloat.c -o $(build_dir)basic_bfloat -march=cooperlake
+	clang $(src_dir)basic_bfloat_mm512.c -o $(build_dir)basic_bfloat_mm512 -march=cooperlake
 
 crypto: ifma gfni vaes clmul
 
