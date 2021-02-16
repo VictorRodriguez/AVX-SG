@@ -9,6 +9,6 @@ else
 	git clone $REPO src/
 fi
 
-cd /src/ && make amx
+cd /src/ && make && make clean && make amx
 cp -rf /src/build/* /build-binaries/
 
