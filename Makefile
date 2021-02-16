@@ -12,6 +12,7 @@ CC_ICX := gcc -O3 -march=icelake-server
 CC_KN := gcc -O3 -march=skylake-avx512 -mavx5124vnniw
 CC_static := $(CC) $(static_flags)
 CC_HSW_static := $(CC_HSW) $(static_flags)
+CC_AMX := /install-dir/bin/gcc
 
 
 
@@ -100,13 +101,13 @@ clmul:
 
 amx:
 	@echo "Install latest version of master gcc or gcc 11"
-	$(CC) $(src_dir)mamx_basic.c -O2 -mamx-tile -o $(build_dir)mamx_basic
-	$(CC) $(src_dir)amxtile-2.c -O2 -mamx-tile -o $(build_dir)amxtile-2
-	$(CC) $(src_dir)amxbf16-dpbf16ps-2.c -O2 -mamx-tile -mamx-bf16 -o $(build_dir)bf16_dpbf16p
-	$(CC) $(src_dir)amxint8-dpbsud-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbsud
-	$(CC) $(src_dir)amxint8-dpbssd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd
-	$(CC) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbusd
-	$(CC) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbuud
+	$(CC_AMX) $(src_dir)mamx_basic.c -O2 -mamx-tile -o $(build_dir)mamx_basic
+	$(CC_AMX) $(src_dir)amxtile-2.c -O2 -mamx-tile -o $(build_dir)amxtile-2
+	$(CC_AMX) $(src_dir)amxbf16-dpbf16ps-2.c -O2 -mamx-tile -mamx-bf16 -o $(build_dir)bf16_dpbf16p
+	$(CC_AMX) $(src_dir)amxint8-dpbsud-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbsud
+	$(CC_AMX) $(src_dir)amxint8-dpbssd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd
+	$(CC_AMX) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbusd
+	$(CC_AMX) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbuud
 
 check:
 	./$(build_dir)basic_add_asm
