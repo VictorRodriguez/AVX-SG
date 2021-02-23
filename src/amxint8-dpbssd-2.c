@@ -65,9 +65,12 @@ void test_amx_int8_dpbssd ()
 	}
 }
 
-int main(){
+int main(int argc, char *argv[]){
 
 	int elapsed_limit = 10;
+	if (argc > 1) {
+		elapsed_limit = atoi(argv[1]);
+	}
 	time_t start, end;
 	double elapsed;  // seconds
 	start = time(NULL);
