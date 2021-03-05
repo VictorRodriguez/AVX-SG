@@ -77,8 +77,7 @@ crypto: ifma gfni vaes clmul
 
 crypto_container: clean crypto
 	cp $(build_dir)/* $(imgs_dir)
-	cp $(imgs_dir)/Dockerfile.crypto $(imgs_dir)/Dockerfile
-	cd $(imgs_dir) && docker build -t crypto_test .
+	cd $(imgs_dir) && docker build -t crypto_test -f Dockerfile.crypto .
 
 ifma:
 	$(CC_ICX) $(src_dir)basic_vpmadd52huq_i_avx512.c -o $(build_dir)basic_vpmadd52huq_i_avx512
