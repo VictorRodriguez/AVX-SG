@@ -1,6 +1,8 @@
 /* { dg-do run { target { ! ia32 } } } */
 /* { dg-options "-O2 -mamx-tile -mamx-int8" } */
 #include <immintrin.h>
+#include <unistd.h>
+#include <time.h>
 
 #define AMX_INT8
 #define DO_TEST test_amx_int8_dpbssd
@@ -63,11 +65,27 @@ void test_amx_int8_dpbssd ()
 	}
 }
 
-int main(){
-	for(int i = 0; i < MAX ; i++){
+int main(int argc, char *argv[]){
+
+	int elapsed_limit = 10;
+	if (argc > 1) {
+		elapsed_limit = atoi(argv[1]);
+	}
+	time_t start, end;
+	double elapsed;  // seconds
+	start = time(NULL);
+	int terminate = 1;
+	while (terminate) {
+		end = time(NULL);
+		elapsed = difftime(end, start);
+		if (elapsed >= 10.0 /* seconds */)
+			terminate = 0;
+		else
 		test_amx_int8_dpbssd();
+		usleep(50000);
 	}
 	printOK();
+	printf("It executes for %d seconds\n",elapsed_limit);
 
 	return 0;
 }
