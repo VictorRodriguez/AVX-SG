@@ -107,6 +107,8 @@ amx:
 	$(CC_AMX) $(src_dir)amxint8-dpbssd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd
 	$(CC_AMX) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbusd
 	$(CC_AMX) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbuud
+	$(CC_AMX) $(src_dir)amxint8-dpbssd-fixed-time-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd-fixed-time
+	$(CC_AMX) $(src_dir)amxint8-dpbssd-fixed-loops-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd-fixed-loops-2
 
 check:
 	./$(build_dir)basic_add_asm
