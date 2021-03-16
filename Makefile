@@ -13,6 +13,7 @@ CC_KN := gcc -O3 -march=skylake-avx512 -mavx5124vnniw
 CC_static := $(CC) $(static_flags)
 CC_HSW_static := $(CC_HSW) $(static_flags)
 CC_AMX := /install-dir/bin/gcc
+ICC_AMX := icc
 
 
 
@@ -109,6 +110,9 @@ amx:
 	$(CC_AMX) $(src_dir)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbuud
 	$(CC_AMX) $(src_dir)amxint8-dpbssd-fixed-time-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd-fixed-time
 	$(CC_AMX) $(src_dir)amxint8-dpbssd-fixed-loops-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd-fixed-loops-2
+
+amx-icc:
+	$(ICC_AMX) $(src_dir)amxint8-dpbssd-icc-2.c -O2 -mamx-tile -mamx-int8 -o $(build_dir)amxint8-dpbssd-icc
 
 check:
 	./$(build_dir)basic_add_asm
