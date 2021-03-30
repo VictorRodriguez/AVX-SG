@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: make
-      run: make
+      run: make & make avx2
     - name: make check
       run: make check
