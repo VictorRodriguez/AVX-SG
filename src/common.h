@@ -142,12 +142,11 @@ void fill_array_int(int *array, int size, int value){
 int check_arrays_int(int result, int32_t *a, int N){
     int ret = 0;
     for (int i=0; i<N; i++){
-        if (a[i] == result)
-            continue;
-        else
-            printf("FAIL, corruption in arithmetic");
+        if (a[i] =! result){
+            printf("FAIL, corruption in arithmetici\n");
             ret =  -1;
             break;
+		}
     }
     return ret;
 }
@@ -155,12 +154,11 @@ int check_arrays_int(int result, int32_t *a, int N){
 int check_arrays_float(float result, float *a){
     int ret = 0;
     for (int i=0; i<256; i++){
-        if (a[i] == result)
-            continue;
-        else
-            printf("FAIL, corruption in arithmetic");
+        if (a[i] =! result){
+            printf("FAIL, corruption in arithmetic\n");
             ret =  -1;
             break;
+		}
     }
     return ret;
 }
