@@ -25,7 +25,7 @@ CC_HSW_static := $(CC_HSW) $(static_flags)
 CC_AMX := /install-dir/bin/gcc
 ICC_AMX := icc
 
-all:basic
+all:basic avx2
 
 basic:
 	$(MKDIR) $(BUILD_DIR)
