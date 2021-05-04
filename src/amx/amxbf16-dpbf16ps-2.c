@@ -6,6 +6,7 @@
 #define DO_TEST test_amx_bf16_dpbf16ps
 void test_amx_bf16_dpbf16ps ();
 #include "amx-check.h"
+#include <tap.h>
 
 /* Transformation functions between bf16/float */
 static uint16_t make_bf16 (float f)
@@ -78,16 +79,13 @@ void test_amx_bf16_dpbf16ps ()
   _tile_dpbf16ps (1, 2, 3);
   _tile_stored (1, dst_ref.buf, _STRIDE);
 
-  if (!check_tile_register (&dst_ref, &dst)){
-		print_notOK();
-        abort();
-	}
+  ok(check_tile_register (&dst_ref, &dst), "Check tile register bf16 dpbf16ps");
 }
 
 int main(){
+        plan (MAX);
 	for(int i = 0; i < MAX ; i++){
 	    test_amx_bf16_dpbf16ps();
 	}
-	printOK();
-    return 0;
+    done_testing();
 }

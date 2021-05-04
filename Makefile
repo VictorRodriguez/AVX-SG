@@ -10,6 +10,8 @@ SRC_BFLOAT16 = src/bfloat16/
 SRC_CRYPTO = src/crypto/
 SRC_AMX = src/amx/
 
+LIBS +=  ../libtap/libtap.a -I../libtap/
+
 BUILD_DIR = build/
 exp_dir = src/experiments/
 imgs_dir = docker_images/templates
@@ -129,28 +131,33 @@ clmul:
 	$(CC_ICX) $(SRC_CRYPTO)basic_mm_clmulepi64_si128.c \
 		-o $(BUILD_DIR)basic_mm_clmulepi64_si128
 
+libtap:
+	rm -rf ../libtap
+	git clone https://github.com/zorgnax/libtap.git  ../libtap
+	cd ../libtap/ && make
+
 amx:
 	@echo "Install latest version of master gcc or gcc 11"
 	$(CC_AMX) $(SRC_AMX)mamx_basic.c -g -O2 -mamx-tile \
-		-o $(BUILD_DIR)mamx_basic
+		-o $(BUILD_DIR)mamx_basic $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxtile-2.c -g -O2 -mamx-tile \
-		-o $(BUILD_DIR)amxtile-2
+		-o $(BUILD_DIR)amxtile-2 $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxbf16-dpbf16ps-2.c -g -O2 -mamx-tile -mamx-bf16 \
-		-o $(BUILD_DIR)bf16_dpbf16p
+		-o $(BUILD_DIR)bf16_dpbf16p $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbsud-2.c -g -O2 -mamx-tile -mamx-int8 \
-		-o $(BUILD_DIR)amxint8-dpbsud
+		-o $(BUILD_DIR)amxint8-dpbsud $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-2.c -g -O2 -mamx-tile -mamx-int8 \
-		-o $(BUILD_DIR)amxint8-dpbssd
+		-o $(BUILD_DIR)amxint8-dpbssd $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -g -O2 -mamx-tile -mamx-int8 \
-		-o $(BUILD_DIR)amxint8-dpbusd
+		-o $(BUILD_DIR)amxint8-dpbusd $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -g -O2 -mamx-tile -mamx-int8 \
-		-o $(BUILD_DIR)amxint8-dpbuud
+		-o $(BUILD_DIR)amxint8-dpbuud $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-time-2.c -g -O2 -mamx-tile \
-		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-time
+		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-time $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-loops-2.c -g -O2 -mamx-tile \
-		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-loops-2
+		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-loops-2 $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-threads-2.c -lpthread -g -O2 -mamx-tile \
-		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-threads-2
+		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-threads-2 $(LIBS)
 
 amx-icc:
 	$(ICC_AMX) $(SRC_AMX)amxint8-dpbssd-icc-2.c -O2 -mamx-tile -mamx-int8 \

@@ -1,6 +1,7 @@
 /* { dg-do run { target { ! ia32 } } } */
 /* { dg-options "-O2 -mamx-tile -mamx-int8" } */
 #include <immintrin.h>
+#include<tap.h>
 
 #define AMX_INT8
 #define DO_TEST test_amx_int8_dpbuud
@@ -56,6 +57,5 @@ void test_amx_int8_dpbuud ()
   _tile_dpbuud (1, 2, 3);
   _tile_stored (1, dst_ref.buf, _STRIDE);
 
-  if (!check_tile_register (&dst_ref, &dst))
-      abort();
+  ok(check_tile_register (&dst_ref, &dst), "Check tile register int8 dpbuud");
 }

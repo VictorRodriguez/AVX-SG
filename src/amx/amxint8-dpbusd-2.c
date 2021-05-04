@@ -6,6 +6,7 @@
 #define DO_TEST test_amx_int8_dpbusd
 void test_amx_int8_dpbusd ();
 #include "amx-check.h"
+#include<tap.h>
 
 /* Init tile buffer with int32 value*/
 void init_i32_max_tile_buffer (uint8_t *buf)
@@ -56,16 +57,13 @@ void test_amx_int8_dpbusd ()
   _tile_dpbusd (1, 2, 3);
   _tile_stored (1, dst_ref.buf, _STRIDE);
 
-  if (!check_tile_register (&dst_ref, &dst)){
-	 print_notOK();
-      abort();
-	}
+  ok(check_tile_register (&dst_ref, &dst), "Check tile register int8 dpbusd");
 }
 
 int main(){
+     plan(MAX);
 	for(int i = 0; i < MAX ; i++){
 		test_amx_int8_dpbusd();
 	}
-	printOK();
-	return 0;
+     done_testing();
 }

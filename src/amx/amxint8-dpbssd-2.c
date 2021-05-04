@@ -1,13 +1,12 @@
 /* { dg-do run { target { ! ia32 } } } */
 /* { dg-options "-O2 -mamx-tile -mamx-int8" } */
 #include <immintrin.h>
-#include <unistd.h>
-#include <time.h>
 
 #define AMX_INT8
 #define DO_TEST test_amx_int8_dpbssd
 void test_amx_int8_dpbssd ();
 #include "amx-check.h"
+#include<tap.h>
 
 /* Init tile buffer with int32 value*/
 void init_i32_max_tile_buffer (uint8_t *buf)
@@ -59,33 +58,13 @@ void test_amx_int8_dpbssd ()
   _tile_dpbssd (1, 2, 3);
   _tile_stored (1, dst_ref.buf, _STRIDE);
 
-  if (!check_tile_register (&dst_ref, &dst)){
-	  print_notOK();
-      abort();
-	}
+  ok(check_tile_register (&dst_ref, &dst), "Check tile register int8 dpbssd");
 }
 
-int main(int argc, char *argv[]){
-
-	int elapsed_limit = 10;
-	if (argc > 1) {
-		elapsed_limit = atoi(argv[1]);
-	}
-	time_t start, end;
-	double elapsed;  // seconds
-	start = time(NULL);
-	int terminate = 1;
-	while (terminate) {
-		end = time(NULL);
-		elapsed = difftime(end, start);
-		if (elapsed >= 10.0 /* seconds */)
-			terminate = 0;
-		else
+int main(){
+        plan(MAX);
+	for(int i = 0; i < MAX ; i++){
 		test_amx_int8_dpbssd();
-		usleep(50000);
 	}
-	printOK();
-	printf("It executes for %d seconds\n",elapsed_limit);
-
-	return 0;
+       done_testing();
 }
