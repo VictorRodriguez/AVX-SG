@@ -143,7 +143,7 @@ amx:
 	$(CC_AMX) $(SRC_AMX)amxtile-2.c -g -O2 -mamx-tile \
 		-o $(BUILD_DIR)amxtile-2 $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxbf16-dpbf16ps-2.c -g -O2 -mamx-tile -mamx-bf16 \
-		-o $(BUILD_DIR)bf16_dpbf16p $(LIBS)
+		-o $(BUILD_DIR)amxbf16-dpbf16ps $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbsud-2.c -g -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbsud $(LIBS)
 	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-2.c -g -O2 -mamx-tile -mamx-int8 \
