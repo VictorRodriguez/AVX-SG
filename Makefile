@@ -131,25 +131,25 @@ clmul:
 
 amx:
 	@echo "Install latest version of master gcc or gcc 11"
-	$(CC_AMX) $(SRC_AMX)mamx_basic.c -O2 -mamx-tile \
+	$(CC_AMX) $(SRC_AMX)mamx_basic.c -g -O2 -mamx-tile \
 		-o $(BUILD_DIR)mamx_basic
-	$(CC_AMX) $(SRC_AMX)amxtile-2.c -O2 -mamx-tile \
+	$(CC_AMX) $(SRC_AMX)amxtile-2.c -g -O2 -mamx-tile \
 		-o $(BUILD_DIR)amxtile-2
-	$(CC_AMX) $(SRC_AMX)amxbf16-dpbf16ps-2.c -O2 -mamx-tile -mamx-bf16 \
+	$(CC_AMX) $(SRC_AMX)amxbf16-dpbf16ps-2.c -g -O2 -mamx-tile -mamx-bf16 \
 		-o $(BUILD_DIR)bf16_dpbf16p
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbsud-2.c -O2 -mamx-tile -mamx-int8 \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbsud-2.c -g -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbsud
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-2.c -O2 -mamx-tile -mamx-int8 \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-2.c -g -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbssd
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -g -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbusd
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -O2 -mamx-tile -mamx-int8 \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbusd-2.c -g -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbuud
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-time-2.c -O2 -mamx-tile \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-time-2.c -g -O2 -mamx-tile \
 		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-time
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-loops-2.c -O2 -mamx-tile \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-fixed-loops-2.c -g -O2 -mamx-tile \
 		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-fixed-loops-2
-	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-threads-2.c -lpthread -O2 -mamx-tile \
+	$(CC_AMX) $(SRC_AMX)amxint8-dpbssd-threads-2.c -lpthread -g -O2 -mamx-tile \
 		-mamx-int8 -o $(BUILD_DIR)amxint8-dpbssd-threads-2
 
 amx-icc:
