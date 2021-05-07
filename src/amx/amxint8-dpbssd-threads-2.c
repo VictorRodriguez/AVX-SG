@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <pthread.h>
+#include <tap.h>
 
 #define NUM_THREADS    500
 
@@ -69,22 +70,24 @@ void test_amx_int8_dpbssd ()
 }
 
 void *run_loop(){
-
-	for(int i = 0; i < 100000 ; i++){
+	while(1){
 		test_amx_int8_dpbssd();
 	}
-
-	printOK();
 }
 
-int main(int argc, char *argv[]){
+void *timer(void *timervalue){
+	long timer_value;
+	timer_value = (long)timervalue;
+	printf("Timer = %ld sec\n",timer_value);
+	sleep(timer_value);
+	exit(0);
+}
+
+int run_threads(){
 
 	pthread_t threads[NUM_THREADS];
-
     int rc;
-    long t;
-
-    for(t=0;t<NUM_THREADS;t++){
+    for(long t=0;t<NUM_THREADS;t++){
         printf("In main: creating thread %ld\n", t);
         rc = pthread_create(&threads[t], NULL, run_loop, NULL);
         if (rc){
@@ -92,10 +95,26 @@ int main(int argc, char *argv[]){
             exit(-1);
         }
     }
+	return !rc;
+}
 
-    /* Last thing that main() should do */
+int main(int argc, char *argv[]){
+
+	int rc;
+	long timer_value = 60;
+	pthread_t timer_thread;
+	plan(1);
+
+	if (argc > 1){
+		timer_value = atoi(argv[1]);
+	}
+	if (timer_value <= 0){
+		abort();
+	}
+
+	ok(run_threads(),"AMX/TMUL test");
+	rc = pthread_create(&timer_thread, NULL, timer, (void *)timer_value);
     pthread_exit(NULL);
-
 
 	return 0;
 }
