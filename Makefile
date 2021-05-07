@@ -163,6 +163,9 @@ amx-icc:
 	$(ICC_AMX) $(SRC_AMX)amxint8-dpbssd-icc-2.c -O2 -mamx-tile -mamx-int8 \
 		-o $(BUILD_DIR)amxint8-dpbssd-icc
 
+dsa:
+	$(CC_AMX) -mmovdir64b -mmovdiri -O2  src/dsa/movdir64b.c -o $(BUILD_DIR)movdir64b
+
 check:
 	./$(BUILD_DIR)basic_add_asm
 	./$(BUILD_DIR)basic_sub_asm
