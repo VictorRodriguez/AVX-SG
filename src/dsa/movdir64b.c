@@ -1,23 +1,28 @@
+/* { dg-do run { target movdir } } */
+/* { dg-options "-mmovdir64b -O2" } */
+
 #include <x86intrin.h>
+#include <string.h>
+#include <tap.h>
 
-unsigned int w;
-void *x;
-unsigned long long q, *z;
+unsigned long long int src[8] = {1, 2, 3, 4, 5, 6, 7, 8};
+unsigned long long int dest[8] __attribute__ ((aligned (64)))
+  = {-1, -1, -1, -1, -1, -1, -1, -1};
 
-int
-main ()
-{
+int movdir64b_test(){
+	if (!__builtin_cpu_supports ("movdir64b"))
+		return 1;
 
-   unsigned int array[] = {1, 2, 3, 4, 5};
-   unsigned int *ap = &w;
+	_movdir64b (dest, src);
 
-   _directstoreu_u32(x, w);
+	if (memcmp (dest, src, sizeof (dest)) != 0)
+		abort ();
 
-#ifdef __x86_64__
-   _directstoreu_u64(z, q);
-#endif
+	return 0;
+}
 
-   _movdir64b(ap, array);
-
-return 0;
+int main () {
+	plan(1);
+	ok(!movdir64b_test(),"Check movdir64b_test");
+	return 0;
 }
