@@ -164,7 +164,9 @@ amx-icc:
 		-o $(BUILD_DIR)amxint8-dpbssd-icc
 
 dsa:
-	$(CC_AMX) -mmovdir64b -mmovdiri -O2  src/dsa/movdir64b.c -o $(BUILD_DIR)movdir64b
+	$(CC_AMX) -mmovdir64b -mmovdiri -O2  src/dsa/movdir64b.c -o $(BUILD_DIR)movdir64b $(LIBS)
+	$(CC_AMX) -mmovdir64b -mmovdiri -O2  src/dsa/movdiri32.c -o $(BUILD_DIR)movdiri32 $(LIBS)
+	$(CC_AMX) -mmovdir64b -mmovdiri -O2  src/dsa/movdiri64.c -o $(BUILD_DIR)movdir64 $(LIBS)
 
 check:
 	./$(BUILD_DIR)basic_add_asm
