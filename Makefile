@@ -29,6 +29,9 @@ ICC_AMX := icc
 
 all:basic avx2
 
+docker:
+	docker build -f docker_images/base/Dockerfile . -t avx-stress
+
 basic:
 	$(MKDIR) $(BUILD_DIR)
 	$(CC) $(SRC_BASIC)basic_add_asm.c -o $(BUILD_DIR)basic_add_asm
